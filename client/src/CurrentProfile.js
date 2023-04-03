@@ -3,10 +3,17 @@ import { useEffect, useState, useContext } from "react";
 import ProfileHeader from "./ProfileHeader";
 import bannerImg from "./images/defaultBanner.png";
 import { Link } from "react-router-dom";
+import { CurrentUserContext } from "./CurrentUserContext";
 
-const Profile = () => {
+const CurrentProfile = () => {
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+console.log(currentUser);
+
   return (
     <>
+    {!currentUser ? (<h1>Loading...</h1>) : 
+    (
+      <div>
       <ProfileHeader />
       <Banner></Banner>
       <LeftDiv>
@@ -17,14 +24,27 @@ const Profile = () => {
       </LeftDiv>
       <BioWrapper>
         <BioDiv>
-          I love the outdoors and like to climb multipitch routes. Mostly sport
-          and trad, but when in the city I like bouldering at Allez Up.
+          <TextBox readOnly>{currentUser.profile.bio}</TextBox>
         </BioDiv>
+        <CategoriesDiv>
+          <In climb={currentUser.profile.indoor}>indoors</In>
+          <Out climb={currentUser.profile.outdoor}>outdoors</Out>
+        </CategoriesDiv>
+        <LevelsDiv>
+          <Sport>
+            sport<div>{currentUser.profile.levelSport}</div>
+          </Sport>
+          <Trad>
+            trad<div>{currentUser.profile.levelTrad}</div>
+          </Trad>
+        </LevelsDiv>
       </BioWrapper>
 
       <Div>
-        <EditLink>edit profile</EditLink>
+        <EditLink to="/edit-profile">edit profile</EditLink>
       </Div>
+      </div>
+      )}
     </>
   );
 };
@@ -69,28 +89,32 @@ const StyledLink = styled(Link)`
 `;
 
 const BioWrapper = styled.div`
-  display: flex;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
-// const BioDiv = styled.div`
-//   width: 600px;
-//   height: 200px;
-//   background-color: aqua;
-//   position: absolute;
-//   top: 65%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   text-align: center;
-// `;
 const BioDiv = styled.div`
   width: 600px;
   height: 150px;
-  background-color: aqua;
   display: flex;
   text-align: center;
   margin-top: 20px;
+`;
+
+const TextBox = styled.textarea`
+  resize: none;
+  width: 600px;
+  height: 150px;
+  border: none;
+  overflow: auto;
+  outline: none;
+  font-size: 18px;
+  text-align: center;
+  font-family: "Raleway", sans-serif;
+
 `;
 
 const Div = styled.div`
@@ -117,7 +141,50 @@ const EditLink = styled(Link)`
   }
   z-index: 2;
   position: relative;
-  bottom: 220px;
+  bottom: 410px;
 `;
 
-export default Profile;
+const CategoriesDiv = styled.div`
+  width: 800px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+`;
+
+const In = styled.div`
+  width: 130px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: ${(props) =>
+    props.climb === true ? "#4c7031" : "antiquewhite"};
+  text-align: center;
+  padding: 15px;
+`;
+const Out = styled.div`
+  width: 130px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: ${(props) =>
+    props.climb === true ? "#4c7031" : "antiquewhite"};
+  text-align: center;
+  padding: 15px;
+`;
+const LevelsDiv = styled.div`
+  width: 300px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 50px;
+  font-size: 25px;
+`;
+
+const Sport = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Trad = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export default CurrentProfile;

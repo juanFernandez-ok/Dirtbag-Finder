@@ -1,12 +1,23 @@
 "use strict";
 
-// import the needed node_modules.
 const express = require("express");
 const morgan = require("morgan");
 const port = 8899;
 
-express()
+const {
+  getUsers,
+  getUserById,
+  getActivePosts,
+  getActivePostsByCategory,
+  getActivePostsById,
+  getClosedPostsByUserId,
+} = require("./GetHandlers");
 
+const {newUser, newRequest, newPost} = require("./PostHandlers")
+const {editProfile} = require("./PatchHandlers")
+const {deletePost} = require("./DeleteHandlers")
+
+express()
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
   .use(morgan("tiny"))
   .use(express.json())
@@ -16,17 +27,25 @@ express()
 
   // endpoints here 👇
 
-.get("/test", (req, res) => {
-    res.status(200).json({data: "hello"})
-})
+  .get("/users", getUsers)
+  .get("/user/:userId", getUserById)
+  .get("/activePosts", getActivePosts)
+  .get("/activePosts/:category", getActivePostsByCategory)
+  .get("/post-details/:postId", getActivePostsById)
+  .get("/closedPosts/:userId", getClosedPostsByUserId)
+
+  .post("/newUser", newUser)
+  .post("/request", newRequest)
+  .post("/newPost", newPost)
+
+  .patch("/edit-profile", editProfile)
+
+  .delete("/delete-post", deletePost)
 
 
-
-
-
-
-
-
+  .get("/test", (req, res) => {
+    res.status(200).json({ data: "hello" });
+  })
 
   // this is my catch all endpoint.
   .get("*", (req, res) => {
@@ -35,6 +54,5 @@ express()
       message: "This is obviously not what you are looking for.",
     });
   })
-
 
   .listen(port, () => console.log(`Listening on port ${port}`));

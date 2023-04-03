@@ -4,11 +4,12 @@ import carabinerImg from "./images/carabiner.png";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const Home = () => {
-  const { logout, isAuthenticated } = useAuth0();
+  const { logout, isAuthenticated, user } = useAuth0();
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const navigate = useNavigate();
-  console.log(isAuthenticated);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -20,7 +21,17 @@ const Home = () => {
       <LeftDiv>
         <Carabiner src={carabinerImg} />
         <H1>dirtbag finder</H1>
-        {isAuthenticated && <LogoutBtn onClick={() => logout()}>Log Out</LogoutBtn>}
+        {isAuthenticated && (
+          <LogoutBtn
+            onClick={() => {
+              logout();
+              window.sessionStorage.removeItem("user");
+              setCurrentUser(null);
+            }}
+          >
+            Log Out
+          </LogoutBtn>
+        )}
       </LeftDiv>
       <RightDiv>
         <Link to="/profile">
@@ -108,12 +119,12 @@ const Info = styled.p`
 `;
 
 const LogoutBtn = styled(Link)`
-margin-top: 20px;
-font-size: 20px;
-font-family: "Raleway", sans-serif;
+  margin-top: 20px;
+  font-size: 20px;
+  font-family: "Raleway", sans-serif;
   :hover {
     color: #ebe8e2;
   }
-`
+`;
 
 export default Home;

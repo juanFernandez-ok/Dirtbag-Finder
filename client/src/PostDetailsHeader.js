@@ -1,26 +1,25 @@
 import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
-import { FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { FiUser } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
-import { CurrentUserContext } from "./CurrentUserContext";
 
-const ProfileHeader = () => {
+
+const PostDetailsHeader = ({category}) => {
   const { logout, isAuthenticated } = useAuth0();
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   return (
     <>
       <Wrapper>
         <LeftDiv>
           <StyledLink to="/home">Dirtbag Finder</StyledLink>
-          <Title>{currentUser?.firstName}</Title>
+          <Title>{category}</Title>
         </LeftDiv>
         <RightDiv>
-          <Title>{currentUser?.lastName}</Title>
+          <Title>Partners</Title>
           {isAuthenticated && (
             <OutDiv>
-              <LogoutBtn onClick={() => {logout(); window.sessionStorage.removeItem("user"); setCurrentUser(null)}}>Log Out</LogoutBtn>
+              <LogoutBtn onClick={() => logout()}>Log Out</LogoutBtn>
             </OutDiv>
           )}
           <UserLink to="/profile">
@@ -80,7 +79,6 @@ const UserLink = styled(Link)`
     color: #ebe8e2;
   }
 `;
-
 const OutDiv = styled.div`
   width: 100vw;
   display: flex;
@@ -96,4 +94,4 @@ const LogoutBtn = styled(Link)`
   right: 20px;
 `;
 
-export default ProfileHeader;
+export default PostDetailsHeader;
