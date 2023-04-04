@@ -107,8 +107,16 @@ const RegisterButton = styled.button`
   height: 35px;
   border: none;
   font-family: "Ovo", serif;
+  font-size: 15px;
+  border-radius: 30px;
   padding: 5px;
   color: #e4d8bf;
   font-weight: 100;
+  background-color: #34571a;
+  :hover {
+    color: black;
+    background-color: #96b13f;
+  }
+  cursor: pointer;
 `;
 export default LandingPage;

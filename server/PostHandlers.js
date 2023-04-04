@@ -68,9 +68,33 @@ const newRequest = async (req, res) => {
   try {
     await client.connect();
     const db = client.db("dirtBag");
+    const postNum = String(req.body.postId);
 
-    items
-      ? res.status(200).json({ status: 200, data: items })
+// this checks if the currentUser already sent a request to that post
+const findPost = await db
+.collection("activePosts")
+.findOne({ _id: postNum });
+
+const matchingUser = findPost.requests.find((item) => {
+  return item.email === String(req.body.email)
+})
+
+if (matchingUser) {
+  return res.status(400).json({
+    status: 400,
+    message: "Sorry, but you already sent a request to this user ",
+  });
+}
+// this creates a new request
+const newUserRequest = {
+ _id: String(req.body.userId), 
+ userBanner: String(req.body.userBanner),
+ email: String(req.body.email) 
+}
+const createNewRequest = await db.collection("activePosts").updateOne({_id: postNum},{$push:{"requests": newUserRequest}});
+
+createNewRequest
+      ? res.status(200).json({ status: 200, message: "Request sent"})
       : res
           .status(400)
           .json({ status: 400, message: "Nothing was found here" });
@@ -93,7 +117,7 @@ const newPost = async (req, res) => {
     if (!req.body.text || !req.body.type) {
       return res.status(400).json({
         status: 400,
-        data: "Missing information",
+        message: "Missing information",
       });
     }
 
@@ -103,8 +127,6 @@ const newPost = async (req, res) => {
       .find({ author: req.body.author })
       .toArray();
 
-    console.log(findPost);
-
     if (findPost.length > 0) {
       const existingPost = findPost.find((item) => {
         return item.type === req.body.type;
@@ -113,11 +135,10 @@ const newPost = async (req, res) => {
       if (existingPost) {
         return res.status(400).json({
           status: 400,
-          message: "Sorry, but you already have a post in this section. If you want to make a new post please delete your old post first",
+          message: "Sorry, but you already have a post in this section",
         });
       }
     }
-    console.log(req.body);
 
     const postResult = {
       _id: newId,

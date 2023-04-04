@@ -9,12 +9,14 @@ import CurrentProfile from "./CurrentProfile";
 import InOut from "./InOut";
 import ProfileDetails from "./ProfileDetails";
 import CreatePost from "./CreatePost"
+import UserPosts from "./UserPosts";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { useContext } from "react";
 import EditProfile from "./EditProfile";
+import UserRequests from "./UserRequests";
 
 
 const App = () => {
@@ -36,6 +38,8 @@ const App = () => {
             <Route path="/profile/:userId" element={<ProfileDetails />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/user-posts" element={<UserPosts />} />
+            <Route path="/user-requests" element={<UserRequests />} />
           </Routes>
         </Main>
       </BrowserRouter>

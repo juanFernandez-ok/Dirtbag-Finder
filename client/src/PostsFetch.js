@@ -6,8 +6,6 @@ import defaultBanner from "./images/defaultBanner.png";
 const PostsFetch = ({ category }) => {
   const [posts, setPosts] = useState(null);
 
-  console.log(category);
-
   useEffect(() => {
     fetch(`/activePosts/${category}`)
       .then((res) => res.json())
@@ -56,6 +54,7 @@ const Wrapper = styled.div`
   width: 100vw;
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   margin-top: 50px;
 `;
 
@@ -67,6 +66,8 @@ const ImgContainer = styled.div`
   height: 255px;
   background-color: #a0b18a;
   overflow: hidden;
+  margin-left: 80px;
+  margin-right: 80px;
 `;
 
 const Img = styled.img`

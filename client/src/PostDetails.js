@@ -3,14 +3,20 @@ import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import PostDetailsHeader from "./PostDetailsHeader";
 import defaultBanner from "./images/defaultBanner.png";
+import PrompMessage from "./PrompMessage";
 import { Link } from "react-router-dom";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const PostDetails = () => {
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { postId } = useParams();
   const [postDetails, setPostDetails] = useState(null);
+  const [requestSent, setRequestSent] = useState(false);
+  const [fetchMessage, setFetchMessage] = useState(null);
 
-console.log(typeof postId);
-
+  if(postDetails) {
+    console.log(currentUser.email);
+  }
   useEffect(() => {
     fetch(`/post-details/${postId}`)
       .then((res) => res.json())
@@ -25,9 +31,38 @@ console.log(typeof postId);
       });
   }, []);
 
-  if (postDetails) {
-    console.log(postDetails);
-  }
+  const handleClick = (e) => {
+    fetch("/request", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        postId: postId,
+        userId: currentUser._id,
+        email: currentUser.email,
+        userBanner: !currentUser.profile.bannerUrl
+          ? "https://images5.alphacoders.com/699/699273.png"
+          : currentUser.profile.bannerUrl,
+      }),
+    })
+      //sends the data to the server
+      .then((res) => res.json())
+      //receives the data back from the server
+      .then((data) => {
+        console.log(data);
+        setFetchMessage(data.message);
+        setRequestSent(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleMessageClick = () => {
+    setRequestSent(false);
+  };
 
   return (
     <>
@@ -44,24 +79,41 @@ console.log(typeof postId);
                   : postDetails.data.authorBanner
               })`,
             }}
-          ></Banner>
-          <RequestDiv>
-            <SendRequest>send request</SendRequest>
-          </RequestDiv>
+          >
+            {requestSent === true && (
+              <PrompMessage
+                fetchMessage={fetchMessage}
+                handleMessageClick={handleMessageClick}
+              />
+            )}
+          </Banner>
+          <ButtonsDiv>
+            <SendRequest  disabled={postDetails.data.author === currentUser.email} onClick={handleClick}>send request</SendRequest>
+            <ProfileLink to={`/profile/${postDetails.userId}`}>
+              view profile
+            </ProfileLink>
+          </ButtonsDiv>
           <BioWrapper>
             <BioDiv>{postDetails.data.text}</BioDiv>
             <LevelsDiv>
               <Sport>
-                sport<div>{!postDetails.data.levelSport ? "-" : postDetails.data.levelSport}</div>
+                sport
+                <div>
+                  {!postDetails.data.levelSport
+                    ? "-"
+                    : postDetails.data.levelSport}
+                </div>
               </Sport>
               <Trad>
-                trad<div>{!postDetails.data.levelTrad ? "-" : postDetails.data.levelTrad}</div>
+                trad
+                <div>
+                  {!postDetails.data.levelTrad
+                    ? "-"
+                    : postDetails.data.levelTrad}
+                </div>
               </Trad>
             </LevelsDiv>
           </BioWrapper>
-          <ProfileLinkWrapper>
-            <ProfileLink to={`/profile/${postDetails.userId}`}>view profile</ProfileLink>
-          </ProfileLinkWrapper>
         </div>
       )}
     </>
@@ -74,34 +126,44 @@ const Banner = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 `;
 
-const RequestDiv = styled.div`
+const ButtonsDiv = styled.div`
   height: 50vh;
-  width: 16vw;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-end;
-  z-index: 2;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 5;
   position: absolute;
-  bottom: 120px;
+  bottom: 140px;
 `;
 
-const SendRequest = styled(Link)`
+const SendRequest = styled.button`
   width: 100px;
   height: 100px;
+  font-family: "Raleway", sans-serif;
   border-radius: 50%;
+  border: none;
   color: black;
   background-color: #f2ae1c;
   padding: 15px;
   margin-bottom: 20px;
+  margin-left: 100px;
   font-size: 15px;
   text-align: center;
   display: flex;
   align-items: center;
-  :hover {
+  :disabled {
+    cursor: not-allowed;
+  }
+  cursor: pointer;
+  z-index: 1000;
+  &:hover {
     color: #ebe8e2;
   }
 `;
@@ -112,23 +174,17 @@ const BioWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 `;
 
 const BioDiv = styled.div`
   width: 600px;
   height: 120px;
   display: flex;
+  justify-content: center;
   text-align: center;
   margin-top: 20px;
-`;
-
-const ProfileLinkWrapper = styled.div`
-  display: flex;
-  width: 100vw;
-  justify-content: flex-end;
-  z-index: 2;
-  position: relative;
-  bottom: 317px;
+  font-size: 20px;
 `;
 
 const ProfileLink = styled(Link)`

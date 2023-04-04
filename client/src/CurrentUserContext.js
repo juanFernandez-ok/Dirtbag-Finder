@@ -35,7 +35,6 @@ const CurrentUserProvider = ({ children }) => {
     }
   }, [isAuthenticated]);
 
-
   useEffect(() => {
     const myUser = window.sessionStorage.getItem("user");
     if (myUser) {
@@ -48,9 +47,9 @@ const CurrentUserProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            firstName: parsedUser.firstName,
-            lastName: parsedUser.lastName,
-            email: parsedUser.email,
+          firstName: parsedUser.firstName,
+          lastName: parsedUser.lastName,
+          email: parsedUser.email,
         }),
       })
         //sends the data to the server
@@ -66,6 +65,10 @@ const CurrentUserProvider = ({ children }) => {
         });
     }
   }, []);
+
+  if (isAuthenticated && !user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import ProfileHeader from "./ProfileHeader";
 import bannerImg from "./images/defaultBanner.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,12 +7,24 @@ import { CurrentUserContext } from "./CurrentUserContext";
 
 const EditProfile = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const [indoorColor, setindoorColor] = useState(currentUser.profile.indoor);
-  const [outdoorColor, setoutdoorColor] = useState(currentUser.profile.outdoor);
-  const [bioText, setBioText] = useState(currentUser.profile.bio);
-  const [sportText, setSportText] = useState(currentUser.profile.levelSport);
-  const [tradText, setTradText] = useState(currentUser.profile.levelTrad);
+  const [indoorColor, setindoorColor] = useState(null);
+  const [outdoorColor, setoutdoorColor] = useState(null);
+  const [bioText, setBioText] = useState(null);
+  const [sportText, setSportText] = useState(null);
+  const [tradText, setTradText] = useState(null);
   const navigate = useNavigate();
+
+useEffect(() => {
+if(currentUser) {
+setindoorColor(currentUser.profile.indoor)
+setoutdoorColor(currentUser.profile.outdoor)
+setBioText(currentUser.profile.bio)
+setSportText(currentUser.profile.levelSport)
+setTradText(currentUser.profile.levelTrad)
+
+}
+
+},[currentUser])
 
   const handleClick = (e) => {
     setindoorColor(!indoorColor);

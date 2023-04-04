@@ -95,6 +95,8 @@ const BioDiv = styled.div`
   width: 600px;
   height: 150px;
   display: flex;
+  justify-content: center;
+  font-size: 20px;
   text-align: center;
   margin-top: 20px;
 `;

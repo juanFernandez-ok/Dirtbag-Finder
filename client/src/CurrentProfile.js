@@ -17,8 +17,8 @@ const CurrentProfile = () => {
       <Banner></Banner>
       <LeftDiv>
         <StyledLink to="/create-post">make a post</StyledLink>
-        <StyledLink>my postings</StyledLink>
-        <StyledLink>my requests</StyledLink>
+        <StyledLink to="/user-posts">my postings</StyledLink>
+        <StyledLink to="/user-requests">my requests</StyledLink>
         <StyledLink>my past partners</StyledLink>
       </LeftDiv>
       <BioWrapper>

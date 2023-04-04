@@ -77,7 +77,7 @@ const getActivePostsByCategory = async (req, res) => {
   try {
     await client.connect();
     const db = client.db("dirtBag");
-    const myCategory = req.params.category;
+    const myCategory = String(req.params.category);
 
     const allPosts = await db.collection("activePosts").find().toArray();
 
@@ -109,17 +109,42 @@ const getActivePostsById = async (req, res) => {
       .collection("activePosts")
       .findOne({ _id: postId });
 
-      console.log(singlePost);
+    console.log(singlePost);
 
     const singleUser = await db
       .collection("users")
       .findOne({ email: singlePost.author });
 
     singlePost
-      ? res.status(200).json({ status: 200, userId: singleUser._id, data: singlePost })
+      ? res
+          .status(200)
+          .json({ status: 200, userId: singleUser._id, data: singlePost })
       : res
           .status(400)
           .json({ status: 400, message: "Nothing was found here" });
+  } catch (error) {
+    res.status(500).json({ status: 500, message: error });
+    client.close();
+  }
+  client.close();
+};
+
+// GET ACTIVE POST BY USER EMAIL
+const getActivePostsByUser = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("dirtBag");
+    const userEmail = String(req.params.email);
+
+    const allActivePosts = await db.collection("activePosts").find({author: userEmail}).toArray();
+
+    allActivePosts
+      ? res.status(200).json({ status: 200, data: allActivePosts })
+      : res
+          .status(400)
+          .json({ status: 400, message: "Nothing was found here" });
+
   } catch (error) {
     res.status(500).json({ status: 500, message: error });
     client.close();
@@ -154,5 +179,6 @@ module.exports = {
   getActivePosts,
   getActivePostsByCategory,
   getActivePostsById,
+  getActivePostsByUser,
   getClosedPostsByUserId,
 };

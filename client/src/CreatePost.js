@@ -34,7 +34,7 @@ const CreatePost = () => {
       body: JSON.stringify({
         author: currentUser.email,
         authorBanner: !currentUser.profile.bannerUrl
-          ? "https://images2.alphacoders.com/129/thumbbig-1292794.webp"
+          ? "https://images5.alphacoders.com/699/699273.png"
           : currentUser.profile.bannerUrl,
         type: indoorColor ? "indoor" : "outdoor",
         text: postText,
@@ -102,12 +102,14 @@ const CreatePost = () => {
           </Wrapper>
           <Div>
             <ConfirmPost
-              disabled={!indoorColor && !outdoorColor}
+              disabled={!indoorColor && !outdoorColor || !postText}
               onClick={handleSubmit}
             >
               create post
             </ConfirmPost>
-            <ConfirmPost to="/profile">cancel</ConfirmPost>
+            <CancelPost to="/profile">
+              cancel
+            </CancelPost>
           </Div>
         </div>
       )}
@@ -174,17 +176,9 @@ const In = styled.button`
   padding: 15px;
   cursor: pointer;
 `;
-const Out = styled.button`
-  width: 130px;
-  height: 50px;
-  border: none;
-  border-radius: 30px;
-  font-size: 16px;
+const Out = styled(In)`
   background-color: ${(props) =>
     props.bcColor1 === true ? "#4c7031" : "antiquewhite"};
-  text-align: center;
-  padding: 15px;
-  cursor: pointer;
 `;
 
 const Div = styled.div`
@@ -195,12 +189,14 @@ const Div = styled.div`
   align-items: flex-end;
 `;
 
-const ConfirmPost = styled(Link)`
+const ConfirmPost = styled.button`
   margin-right: 140px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  border: none;
   color: #ebe8e2;
+  font-family: "Raleway", sans-serif;
   background-color: #34571a;
   padding: 23px;
   margin-bottom: 50px;
@@ -209,11 +205,41 @@ const ConfirmPost = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+  :disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
   :hover {
     color: #f2ae1c;
   }
   position: relative;
   bottom: 300px;
+  cursor: pointer;
 `;
+
+const CancelPost = styled(Link)`
+  margin-right: 140px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: none;
+  color: #ebe8e2;
+  font-family: "Raleway", sans-serif;
+  background-color: #34571a;
+  padding: 23px;
+  margin-bottom: 50px;
+  font-size: 19px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  bottom: 300px;
+  cursor: pointer;
+  :hover {
+    color: #f2ae1c;
+  }
+`
+
 
 export default CreatePost;
