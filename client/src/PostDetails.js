@@ -9,6 +9,8 @@ const PostDetails = () => {
   const { postId } = useParams();
   const [postDetails, setPostDetails] = useState(null);
 
+console.log(typeof postId);
+
   useEffect(() => {
     fetch(`/post-details/${postId}`)
       .then((res) => res.json())

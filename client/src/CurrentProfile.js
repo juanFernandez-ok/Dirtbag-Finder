@@ -7,7 +7,6 @@ import { CurrentUserContext } from "./CurrentUserContext";
 
 const CurrentProfile = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-console.log(currentUser);
 
   return (
     <>
@@ -17,7 +16,7 @@ console.log(currentUser);
       <ProfileHeader />
       <Banner></Banner>
       <LeftDiv>
-        <StyledLink>make a post</StyledLink>
+        <StyledLink to="/create-post">make a post</StyledLink>
         <StyledLink>my postings</StyledLink>
         <StyledLink>my requests</StyledLink>
         <StyledLink>my past partners</StyledLink>
@@ -94,10 +93,11 @@ const BioWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 `;
 
 const BioDiv = styled.div`
-  width: 600px;
+  width: 650px;
   height: 150px;
   display: flex;
   text-align: center;
@@ -106,15 +106,14 @@ const BioDiv = styled.div`
 
 const TextBox = styled.textarea`
   resize: none;
-  width: 600px;
+  width: 650px;
   height: 150px;
   border: none;
   overflow: auto;
   outline: none;
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
   font-family: "Raleway", sans-serif;
-
 `;
 
 const Div = styled.div`

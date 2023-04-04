@@ -50,10 +50,20 @@ const ProfileDetails = () => {
             </CategoriesDiv>
             <LevelsDiv>
               <Sport>
-                sport<div>{!profileInfo.profile.levelSport ? "-" : profileInfo.profile.levelSport}</div>
+                sport
+                <div>
+                  {!profileInfo.profile.levelSport
+                    ? "-"
+                    : profileInfo.profile.levelSport}
+                </div>
               </Sport>
               <Trad>
-                trad<div>{!profileInfo.profile.levelTrad ? "-" : profileInfo.profile.levelTrad}</div>
+                trad
+                <div>
+                  {!profileInfo.profile.levelTrad
+                    ? "-"
+                    : profileInfo.profile.levelTrad}
+                </div>
               </Trad>
             </LevelsDiv>
           </BioWrapper>
@@ -100,7 +110,8 @@ const In = styled.div`
   width: 130px;
   height: 50px;
   border-radius: 30px;
-  background-color: ${(props) => props.indoor === true ? 'green' : 'antiquewhite'};
+  background-color: ${(props) =>
+    props.indoor === true ? "#4c7031" : "antiquewhite"};
   text-align: center;
   padding: 15px;
 `;
@@ -108,7 +119,8 @@ const Out = styled.div`
   width: 130px;
   height: 50px;
   border-radius: 30px;
-  background-color: ${(props) => props.outdoor === true ? 'green' : 'antiquewhite'};
+  background-color: ${(props) =>
+    props.outdoor === true ? "#4c7031" : "antiquewhite"};
   text-align: center;
   padding: 15px;
 `;

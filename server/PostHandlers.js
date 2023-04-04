@@ -87,9 +87,57 @@ const newPost = async (req, res) => {
   try {
     await client.connect();
     const db = client.db("dirtBag");
+    const newId = uuid();
 
-    items
-      ? res.status(200).json({ status: 200, data: items })
+    // this verifies there's not missing information in the req.body
+    if (!req.body.text || !req.body.type) {
+      return res.status(400).json({
+        status: 400,
+        data: "Missing information",
+      });
+    }
+
+    // this verifies that the user doesn't already have an active post in the category
+    const findPost = await db
+      .collection("activePosts")
+      .find({ author: req.body.author })
+      .toArray();
+
+    console.log(findPost);
+
+    if (findPost.length > 0) {
+      const existingPost = findPost.find((item) => {
+        return item.type === req.body.type;
+      });
+
+      if (existingPost) {
+        return res.status(400).json({
+          status: 400,
+          message: "Sorry, but you already have a post in this section. If you want to make a new post please delete your old post first",
+        });
+      }
+    }
+    console.log(req.body);
+
+    const postResult = {
+      _id: newId,
+      author: req.body.author,
+      authorBanner: req.body.authorBanner,
+      type: req.body.type,
+      text: req.body.text,
+      levelSport: req.body.levelSport,
+      levelTrad: req.body.levelTrad,
+      requests: [],
+    };
+
+    const createNewPost = await db
+      .collection("activePosts")
+      .insertOne(postResult);
+
+    createNewPost
+      ? res
+          .status(200)
+          .json({ status: 200, message: "New post created", newPostId: newId })
       : res
           .status(400)
           .json({ status: 400, message: "Nothing was found here" });

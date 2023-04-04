@@ -35,7 +35,7 @@ const getUserById = async (req, res) => {
   try {
     await client.connect();
     const db = client.db("dirtBag");
-    const myId = Number(req.params.userId);
+    const myId = String(req.params.userId);
 
     const user = await db.collection("users").findOne({ _id: myId });
 
@@ -103,11 +103,13 @@ const getActivePostsById = async (req, res) => {
   try {
     await client.connect();
     const db = client.db("dirtBag");
-    const postId = Number(req.params.postId);
+    const postId = String(req.params.postId);
 
     const singlePost = await db
       .collection("activePosts")
       .findOne({ _id: postId });
+
+      console.log(singlePost);
 
     const singleUser = await db
       .collection("users")

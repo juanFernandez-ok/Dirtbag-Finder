@@ -6,6 +6,7 @@ import defaultBanner from "./images/defaultBanner.png";
 const PostsFetch = ({ category }) => {
   const [posts, setPosts] = useState(null);
 
+  console.log(category);
 
   useEffect(() => {
     fetch(`/activePosts/${category}`)

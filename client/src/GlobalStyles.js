@@ -77,8 +77,8 @@ const GlobalStyles = createGlobalStyle`
     color: #444444;
   }
   /* Buttons */
-  button {
-    background-color: var(--color-accent);
+  /* button {
+    background-color:#4c7031;
     border: none;
     border-radius: 20px;
     color: black;
@@ -90,11 +90,11 @@ const GlobalStyles = createGlobalStyle`
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     border: 1px black solid;
 
-  }
+  } */
 
-  button:hover {
+  /* button:hover {
     background-color: #d4ff8a;
-  }
+  } */
 
   /* Navigation */
   nav {

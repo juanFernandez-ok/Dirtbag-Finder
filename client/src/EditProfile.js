@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import ProfileHeader from "./ProfileHeader";
 import bannerImg from "./images/defaultBanner.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,32 +7,25 @@ import { CurrentUserContext } from "./CurrentUserContext";
 
 const EditProfile = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const [indoorColor, setindoorColor] = useState(true);
-  const [outdoorColor, setoutdoorColor] = useState(true);
+  const [indoorColor, setindoorColor] = useState(currentUser.profile.indoor);
+  const [outdoorColor, setoutdoorColor] = useState(currentUser.profile.outdoor);
   const [bioText, setBioText] = useState(currentUser.profile.bio);
   const [sportText, setSportText] = useState(currentUser.profile.levelSport);
   const [tradText, setTradText] = useState(currentUser.profile.levelTrad);
   const navigate = useNavigate();
 
-  if (outdoorColor) {
-    console.log(outdoorColor);
-  }
   const handleClick = (e) => {
     setindoorColor(!indoorColor);
   };
-
   const handleClick1 = (e) => {
     setoutdoorColor(!outdoorColor);
   };
-
   const handleBioText = (e) => {
     setBioText(e.target.value);
   };
-
   const handleSportText = (e) => {
     setSportText(e.target.value);
   };
-
   const handleTradText = (e) => {
     setTradText(e.target.value);
   };
@@ -57,7 +50,6 @@ const EditProfile = () => {
       .then((res) => res.json())
       //receives the data back from the server
       .then((data) => {
-        console.log(data);
         setCurrentUser(data.data);
         navigate("/profile");
       })
@@ -82,7 +74,11 @@ const EditProfile = () => {
           ></Banner>
           <BioWrapper>
             <BioDiv>
-              <TextBox maxLength={300} onChange={handleBioText}></TextBox>
+              <TextBox
+                value={bioText}
+                maxLength={300}
+                onChange={handleBioText}
+              ></TextBox>
             </BioDiv>
             <CategoriesDiv>
               <In
@@ -103,11 +99,19 @@ const EditProfile = () => {
             <LevelsDiv>
               <Sport>
                 sport
-                <SportText maxLength={5} onChange={handleSportText}></SportText>
+                <SportText
+                  value={sportText}
+                  maxLength={5}
+                  onChange={handleSportText}
+                ></SportText>
               </Sport>
               <Trad>
                 trad
-                <TradText maxLength={5} onChange={handleTradText}></TradText>
+                <TradText
+                  value={tradText}
+                  maxLength={5}
+                  onChange={handleTradText}
+                ></TradText>
               </Trad>
             </LevelsDiv>
           </BioWrapper>
@@ -115,7 +119,6 @@ const EditProfile = () => {
             <SaveLink onClick={handleSubmit}>save</SaveLink>
             <SaveLink to="/profile">cancel</SaveLink>
           </Div>
-          <div>EditProfile</div>
         </div>
       )}
     </>
