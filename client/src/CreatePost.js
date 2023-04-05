@@ -4,12 +4,15 @@ import ProfileHeader from "./ProfileHeader";
 import bannerImg from "./images/defaultBanner.png";
 import { Link, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "./CurrentUserContext";
+import PrompMessage from "./PrompMessage";
 
 const CreatePost = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [postText, setPostText] = useState(null);
   const [indoorColor, setIndoorColor] = useState(false);
   const [outdoorColor, setOutdoorColor] = useState(false);
+  const [fetchMessage, setFetchMessage] = useState(null);
+  const[alertPrompt, setAlertPrompt] = useState(false);
   const navigate = useNavigate();
 
   const handlePostText = (e) => {
@@ -47,12 +50,18 @@ const CreatePost = () => {
       //receives the data back from the server
       .then((data) => {
         console.log(data);
-        // navigate(`/post-details/${data.newPostId}`);
-        navigate(`/profile`);
+        setAlertPrompt(true)
+        setFetchMessage(data.message)
+        if(data.status === 200) {
+        navigate(`/post-details/${data.newPostId}`);}
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleMessageClick = () => {
+    setAlertPrompt(false);
   };
 
   return (
@@ -70,7 +79,12 @@ const CreatePost = () => {
                   : currentUser.profile.bannerUrl
               })`,
             }}
-          ></Banner>
+          >     {alertPrompt === true && (
+            <PrompMessage
+              fetchMessage={fetchMessage}
+              handleMessageClick={handleMessageClick}
+            />
+          )}</Banner>
           <Wrapper>
             <PostDiv>
               <P1>Please write a post description below</P1>
@@ -123,6 +137,9 @@ const Banner = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 `;
 

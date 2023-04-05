@@ -109,8 +109,6 @@ const getActivePostsById = async (req, res) => {
       .collection("activePosts")
       .findOne({ _id: postId });
 
-    console.log(singlePost);
-
     const singleUser = await db
       .collection("users")
       .findOne({ email: singlePost.author });

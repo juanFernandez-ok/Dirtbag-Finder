@@ -14,9 +14,6 @@ const PostDetails = () => {
   const [requestSent, setRequestSent] = useState(false);
   const [fetchMessage, setFetchMessage] = useState(null);
 
-  if(postDetails) {
-    console.log(currentUser.email);
-  }
   useEffect(() => {
     fetch(`/post-details/${postId}`)
       .then((res) => res.json())
@@ -162,7 +159,6 @@ const SendRequest = styled.button`
     cursor: not-allowed;
   }
   cursor: pointer;
-  z-index: 1000;
   &:hover {
     color: #ebe8e2;
   }
@@ -218,9 +214,7 @@ const Sport = styled.div`
   flex-direction: column;
 `;
 
-const Trad = styled.div`
-  display: flex;
-  flex-direction: column;
+const Trad = styled(Sport)`
 `;
 
 export default PostDetails;

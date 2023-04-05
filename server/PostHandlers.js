@@ -70,31 +70,49 @@ const newRequest = async (req, res) => {
     const db = client.db("dirtBag");
     const postNum = String(req.body.postId);
 
-// this checks if the currentUser already sent a request to that post
-const findPost = await db
-.collection("activePosts")
-.findOne({ _id: postNum });
+    // this checks if the currentUser already sent a request to that post
+    const findPost = await db
+      .collection("activePosts")
+      .findOne({ _id: postNum });
 
-const matchingUser = findPost.requests.find((item) => {
-  return item.email === String(req.body.email)
-})
+    const matchingUser = findPost.requests.find((item) => {
+      return item.email === String(req.body.email);
+    });
 
-if (matchingUser) {
-  return res.status(400).json({
-    status: 400,
-    message: "Sorry, but you already sent a request to this user ",
-  });
-}
-// this creates a new request
-const newUserRequest = {
- _id: String(req.body.userId), 
- userBanner: String(req.body.userBanner),
- email: String(req.body.email) 
-}
-const createNewRequest = await db.collection("activePosts").updateOne({_id: postNum},{$push:{"requests": newUserRequest}});
+    if (matchingUser) {
+      return res.status(400).json({
+        status: 400,
+        message: "Sorry, but you already sent a request to this user ",
+      });
+    }
+    // this creates a new request in the activePost document
+    const newUserRequest = {
+      _id: String(req.body.userId),
+      userBanner: String(req.body.userBanner),
+      email: String(req.body.email),
+      type: findPost.type,
+    };
+    const createNewRequest = await db
+      .collection("activePosts")
+      .updateOne({ _id: postNum }, { $push: { requests: newUserRequest } });
 
-createNewRequest
-      ? res.status(200).json({ status: 200, message: "Request sent"})
+    // this creates a new pending request in the currentUser document
+    const newPendingRequest = {
+      postId: String(req.body.postId),
+      author: findPost.author,
+      authorBanner: findPost.authorBanner,
+      type: findPost.type,
+    };
+
+    const createPendingRequest = await db
+      .collection("users")
+      .updateOne(
+        { _id: String(req.body.userId) },
+        { $push: { pendingRequests: newPendingRequest } }
+      );
+
+    createNewRequest
+      ? res.status(200).json({ status: 200, message: "Request sent" })
       : res
           .status(400)
           .json({ status: 400, message: "Nothing was found here" });

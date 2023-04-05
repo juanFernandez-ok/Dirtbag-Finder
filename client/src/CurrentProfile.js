@@ -14,7 +14,8 @@ const CurrentProfile = () => {
     (
       <div>
       <ProfileHeader />
-      <Banner></Banner>
+      <Banner style={{
+              backgroundImage: `url(${!currentUser.profile.bannerUrl ? bannerImg : currentUser.profile.bannerUrl})`}}></Banner>
       <LeftDiv>
         <StyledLink to="/create-post">make a post</StyledLink>
         <StyledLink to="/user-posts">my postings</StyledLink>
@@ -51,7 +52,7 @@ const CurrentProfile = () => {
 const Banner = styled.div`
   width: 100vw;
   height: 40vh;
-  background-image: url(${bannerImg});
+  /* background-image: url(${bannerImg}); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 60%;

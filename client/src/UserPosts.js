@@ -8,6 +8,8 @@ import { CurrentUserContext } from "./CurrentUserContext";
 const UserPosts = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [postings, setPostings] = useState();
+//   const [indoorReq, setIndoorReq] = useState();
+//   const [outdoorReq, setOutdoorReq] = useState();
 
   useEffect(() => {
     if (currentUser) {
@@ -26,9 +28,13 @@ const UserPosts = () => {
     }
   }, []);
 
+const myRequests = postings && postings.map((item) => {return item.requests})
+const indoorReq = myRequests && myRequests.find((e) => {return e[0].type === "indoor"})
+const outdoorReq = myRequests && myRequests.find((e) => {return e[0].type === "outdoor"})
+
   return (
     <>
-      {!currentUser ? (
+      {!currentUser && !postings && !myRequests ? (
         <h1>Loading...</h1>
       ) : (
         <Wrapper>
@@ -47,10 +53,16 @@ const UserPosts = () => {
           </InfoDiv>
           <PostsDiv>
             <Indoorwrapper>
-              <IndoorPost>my indoor Pendings</IndoorPost>
+              <IndoorPost>indoor post Pendings</IndoorPost>
+              {indoorReq ? indoorReq.map((item) => {
+                return  <PendingWrapper><Avatar src={item.userBanner}/>{item.email}</PendingWrapper>
+              }) : <p>you have no indoor pendings at this moment</p>}
             </Indoorwrapper>
             <Outdoorwrapper>
-              <OutdoorPost>my outdoor Pendings</OutdoorPost>
+              <OutdoorPost>outdoor post Pendings</OutdoorPost>
+              {outdoorReq ? outdoorReq.map((item) => {
+                return <PendingWrapper><Avatar src={item.userBanner}/>{item.email}</PendingWrapper>
+              }) : <p>you have no outdoor pendings at this moment</p>}
             </Outdoorwrapper>
           </PostsDiv>
         </Wrapper>
@@ -111,7 +123,23 @@ const IndoorPost = styled.div`
   background-color: #f2ae1c;
   padding: 10px 30px;
   border-radius: 30px;
+  display: flex;
+  justify-content: center;
 `;
 const OutdoorPost = styled(IndoorPost)``;
+
+const PendingWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 290px;
+  height: 40px;
+  margin-top: 20px;
+`
+const Avatar = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+`;
 
 export default UserPosts;

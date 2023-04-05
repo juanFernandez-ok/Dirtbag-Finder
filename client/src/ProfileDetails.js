@@ -37,7 +37,7 @@ const ProfileDetails = () => {
             style={{
               backgroundImage: `url(${
                 !profileInfo.profile.bannerUrl
-                  ? defaultBanner
+                  ? "https://images7.alphacoders.com/126/thumbbig-1268348.webp"
                   : profileInfo.profile.bannerUrl
               })`,
             }}
