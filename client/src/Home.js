@@ -46,10 +46,12 @@ const Home = () => {
             <Info>find climbing partners in your area!</Info>
           </Partners>
         </Link>
+        <Link to="/gyms-map">
         <Gyms>
           <Title>gyms</Title>
           <Info>find gyms around your town</Info>
         </Gyms>
+        </Link>
       </RightDiv>
     </Wrapper>
   );

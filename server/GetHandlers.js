@@ -169,6 +169,27 @@ const getClosedPostsByUserId = async (req, res) => {
   client.close();
 };
 
+const getMtlGyms = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("dirtBag");
+
+    const allGyms = await db.collection("montrealGyms").find().toArray();
+
+    allGyms
+      ? res.status(200).json({ status: 200, data: allGyms })
+      : res
+          .status(400)
+          .json({ status: 400, message: "Nothing was found here" });
+  } catch (error) {
+    res.status(500).json({ status: 500, message: error });
+    client.close();
+  }
+  client.close();
+};
+
+
 module.exports = {
   getUsers,
   getUserById,
@@ -177,4 +198,5 @@ module.exports = {
   getActivePostsById,
   getActivePostsByUser,
   getClosedPostsByUserId,
+  getMtlGyms,
 };

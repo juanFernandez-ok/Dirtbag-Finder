@@ -29,7 +29,7 @@ const UserPosts = () => {
           console.log(error.message);
         });
     }
-  }, []);
+  }, [currentUser]);
 
   const indoorCheck =
     postings &&
@@ -42,8 +42,8 @@ const UserPosts = () => {
       return el.type === "outdoor";
     });
 
-    console.log(indoorCheck);
-    console.log(outdoorCheck);
+  console.log(indoorCheck);
+  console.log(outdoorCheck);
 
   const myPendings =
     postings &&
@@ -56,27 +56,32 @@ const UserPosts = () => {
 
   let outArr;
   if (outdoorCheck && postings) {
-  outArr = postings && postings.filter((el) => {
-return el.type === "outdoor"
-  })}
+    outArr =
+      postings &&
+      postings.filter((el) => {
+        return el.type === "outdoor";
+      });
+  }
   let inArr;
   if (indoorCheck && postings) {
-  inArr = postings && postings.filter((el) => {
-return el.type === "indoor"
-  })}
+    inArr =
+      postings &&
+      postings.filter((el) => {
+        return el.type === "indoor";
+      });
+  }
 
-
-//   postings && console.log(outArr[0].requests.length);
+  //   postings && console.log(outArr[0].requests.length);
 
   let indoorPendings;
-  if ((indoorCheck === true) && (inArr[0].requests.length > 0)) {
+  if (indoorCheck === true && inArr[0].requests.length > 0) {
     indoorPendings = myPendings.find((e) => {
       return e[0].type === "indoor";
     });
   }
 
   let outdoorPendings;
-  if ((outdoorCheck === true) && (outArr[0].requests.length > 0)) {
+  if (outdoorCheck === true && outArr[0].requests.length > 0) {
     outdoorPendings = myPendings.find((e) => {
       return e[0].type === "outdoor";
     });
@@ -110,7 +115,7 @@ return el.type === "indoor"
         "Content-Type": "application/json",
       },
     }).then((data) => {
-        console.log(data);
+      console.log(data);
     });
   };
 
@@ -176,7 +181,7 @@ return el.type === "indoor"
                 outdoorPendings.map((item) => {
                   return (
                     <Link key={item._id} to={`/profile/${item._id}`}>
-                      <PendingWrapper >
+                      <PendingWrapper>
                         <Avatar src={item.userBanner} />
                         {item.email}
                       </PendingWrapper>

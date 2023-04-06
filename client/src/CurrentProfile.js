@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import ProfileHeader from "./ProfileHeader";
 import bannerImg from "./images/defaultBanner.png";
 import { Link } from "react-router-dom";
@@ -20,7 +20,7 @@ const CurrentProfile = () => {
         <StyledLink to="/create-post">make a post</StyledLink>
         <StyledLink to="/user-posts">my postings</StyledLink>
         <StyledLink to="/user-requests">my requests</StyledLink>
-        <StyledLink>my past partners</StyledLink>
+        <StyledLink to="/past-partners">my past partners</StyledLink>
       </LeftDiv>
       <BioWrapper>
         <BioDiv>
@@ -52,7 +52,6 @@ const CurrentProfile = () => {
 const Banner = styled.div`
   width: 100vw;
   height: 40vh;
-  /* background-image: url(${bannerImg}); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 60%;

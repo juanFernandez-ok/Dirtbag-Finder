@@ -3,6 +3,7 @@ const { MongoClient } = require("mongodb");
 const users = require("./data/users");
 const activePosts = require("./data/activePosts");
 const closedPosts = require("./data/closedPosts");
+const montrealGyms = require("./data/montrealGyms")
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -20,6 +21,7 @@ const batchImport = async () => {
   await db.collection("users").insertMany(users);
   await db.collection("activePosts").insertMany(activePosts);
   await db.collection("closedPosts").insertMany(closedPosts);
+  await db.collection("montrealGyms").insertMany(montrealGyms);
 
   client.close();
 };

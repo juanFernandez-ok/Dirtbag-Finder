@@ -8,7 +8,7 @@ import PostsFetch from "./PostsFetch";
 
 const Partners = () => {
   const { category } = useParams();
-
+console.log(category);
   return (
     <>
       <Header1 />
@@ -25,21 +25,28 @@ const Partners = () => {
 
 const Wrapper = styled.div`
   display: flex;
+  width: 100vw;
+  height: 100vh;
+
 `;
 
 const BgImg = styled.div`
   display: flex;
   width: 100vw;
-  height: 95vh;
+  height: 100vh;
+  overflow: auto;
   background-image: ${(props) =>
-    props.category === "indoors" ? `url(${gymImg})` : `url(${outBanner4})`};
+    props.category === "indoor" ? `url(${gymImg})` : `url(${outBanner4})`};
   background-repeat: no-repeat;
   background-size: cover;
+
 `;
 
 const ImgWrapper = styled.div`
   width: 100vw;
+  height: 100%;
   display: flex;
   justify-content: space-evenly;
+
 `;
 export default Partners;

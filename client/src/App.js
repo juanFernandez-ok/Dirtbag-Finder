@@ -17,6 +17,8 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import { useContext } from "react";
 import EditProfile from "./EditProfile";
 import UserRequests from "./UserRequests";
+import PastPartners from "./PastPartners";
+import GymsMap from "./GymsMap";
 
 
 const App = () => {
@@ -40,6 +42,9 @@ const App = () => {
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/user-posts" element={<UserPosts />} />
             <Route path="/user-requests" element={<UserRequests />} />
+            <Route path="/past-partners" element={<PastPartners />} />
+            <Route path="/gyms-map" element={<GymsMap />} />
+        
           </Routes>
         </Main>
       </BrowserRouter>

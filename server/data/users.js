@@ -91,6 +91,78 @@ const users = [
     oldPartners: [{ _id: "1", email: "joe@hellojoe.com" }],
     pendingRequests: [{ _id: "3", email: "caro@hellocaro.com" }],
   },
+  {
+    _id: "6",
+    email: "mark@mark1234.com",
+    firstName: "mark",
+    lastName: "scholes",
+    profile: {
+      indoor: false,
+      outdoor: true,
+      levelSport: "5.12c",
+      levelTrad: "5.11d",
+      bio: "Hi my name is Mark and I climb rocks!",
+      bannerUrl:
+        "https://images.unsplash.com/photo-1579454091757-05ccc063cc49?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29uJTIwbGFuZHNjYXBlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+    },
+    activePosts: ["777"],
+    oldPartners: [{ _id: "1", email: "joe@hellojoe.com" }],
+    pendingRequests: [],
+  },
+  {
+    _id: "7",
+    email: "susan@susan1234.com",
+    firstName: "susan",
+    lastName: "freeman",
+    profile: {
+      indoor: true,
+      outdoor: true,
+      levelSport: "5.13a",
+      levelTrad: "5.10c",
+      bio: "Hi my name is Susan and I climb rocks!",
+      bannerUrl:
+        "https://images.unsplash.com/photo-1604537466573-5e94508fd243?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcnNvbiUyMGxhbmRzY2FwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    },
+    activePosts: ["888"],
+    oldPartners: [{ _id: "1", email: "joe@hellojoe.com" }],
+    pendingRequests: [],
+  },
+  {
+    _id: "8",
+    email: "mary@mary1234",
+    firstName: "mary",
+    lastName: "dicaprio",
+    profile: {
+      indoor: true,
+      outdoor: true,
+      levelSport: "5.9",
+      levelTrad: "5.6",
+      bio: "Hi my name is Mary and I love to climb. I am a beginner so I like to take it easy. Mainly have indoor experiance but I would love to get out there. ",
+      bannerUrl:
+        "https://images.unsplash.com/photo-1523975864490-174dd4d9a41e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzd8fHBlcnNvbiUyMGxhbmRzY2FwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    },
+    activePosts: ["999"],
+    oldPartners: [{ _id: "1", email: "joe@hellojoe.com" }],
+    pendingRequests: [],
+  },
+  {
+    _id: "9",
+    email: "charles@charles1234.com",
+    firstName: "charles",
+    lastName: "belanger",
+    profile: {
+      indoor: true,
+      outdoor: true,
+      levelSport: "5.11a",
+      levelTrad: "5.9+",
+      bio: "Hi my name is Charles and I love to climb. I am originally form France but I have been living in Montreal for the past 5 years. I like to climb at Allez Up Gym and in the summer I usually go to New Hampshire. ",
+      bannerUrl:
+        "https://images.unsplash.com/photo-1483666852720-824ca74c50ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI2fHxwZXJzb24lMjBsYW5kc2NhcGV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
+    },
+    activePosts: ["1000"],
+    oldPartners: [{ _id: "1", email: "joe@hellojoe.com" }],
+    pendingRequests: [],
+  },
 ];
 
 module.exports = users;

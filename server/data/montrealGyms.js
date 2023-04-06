@@ -1,0 +1,88 @@
+const montrealGyms = [
+  {
+    _id: "1",
+    gymName: "Allez Up St-Patrick",
+    coordinates: { lat: 45.48598, lng: -73.56829 },
+    address: "1555 Rue St-Patrick, Montréal, QC H3K 2B7",
+    websiteUrl: "https://allezup.com/",
+  },
+  {
+    _id: "2",
+    gymName: "Allez Up Verdun",
+    coordinates: { lat: 45.4624, lng: -73.5636 },
+    address: " 4137 Bd LaSalle, Verdun, QC H4G 2A6",
+    websiteUrl: "https://allezup.com/",
+  },
+  {
+    _id: "3",
+    gymName: "Allez Up Mile-End",
+    coordinates: { lat: 45.5279, lng: -73.5984 },
+    address: " 5600 Av. de Gaspé, Montréal, QC H2T 2A7",
+    websiteUrl: "https://allezup.com/",
+  },
+  {
+    _id: "4",
+    gymName: "Bloc Shop",
+    coordinates: { lat: 45.536361, lng: -73.542345 },
+    address: "2985 St Catherine St E, Montreal, Quebec H1W 3Y8",
+    websiteUrl: "https://blocshop.com/en/",
+  },
+  {
+    _id: "5",
+    gymName: "Bloc Shop Chabanel",
+    coordinates: { lat: 45.531536, lng: -73.65797 },
+    address: "1370 Rue Chabanel O, Montréal, QC H4N 1H4",
+    websiteUrl: "https://blocshop.com/en/",
+  },
+  {
+    _id: "6",
+    gymName: "Le Mouv' espace bloc",
+    coordinates: { lat: 45.565363, lng: -73.596195 },
+    address: "3811 Rue Everett, Montréal, QC H2A 1S8",
+    websiteUrl: "https://www.lemouv.ca/",
+  },
+  {
+    _id: "7",
+    gymName: "Shakti Rock Gym",
+    coordinates: { lat: 45.52744, lng: -73.597764 },
+    address: "175 St Viateur St. E, Montreal, Quebec H2T 1B4",
+    websiteUrl: "https://shaktirockgym.com/",
+  },
+  {
+    _id: "8",
+    gymName: "Escalade Clip 'n Climb Laval",
+    coordinates: { lat: 45.5619, lng: -73.72904 },
+    address: "2045 Boulevard Dagenais O, Laval, QC H7L 5V1",
+    websiteUrl: "https://clipnclimblaval.ca/en/",
+  },
+  {
+    _id: "9",
+    gymName: "Horizon Roc",
+    coordinates: { lat: 45.568218, lng: -73.53663 },
+    address: "2350 Rue Dickson, Montréal, QC H1N 3T1",
+    websiteUrl: "https://horizonroc.com/en/",
+  },
+  {
+    _id: "10",
+    gymName: "Zero Gravité",
+    coordinates: { lat: 45.534023, lng: -73.576396 },
+    address: "4519 Avenue Papineau, Montréal, QC H2H 1V4",
+    websiteUrl: "https://zero-gravite.ca/",
+  },
+  {
+    _id: "11",
+    gymName: "Beta Bloc",
+    coordinates: { lat: 45.479934, lng: -73.78134 },
+    address: "2180 Hymus Blvd, Dorval, Quebec H9P 1J7",
+    websiteUrl: "https://www.betabloc.ca/",
+  },
+  {
+    _id: "12",
+    gymName: "Canyon Escalade",
+    coordinates: { lat: 45.407741, lng: -73.469978 },
+    address: "1775 Chem. de Saint-Jean, La Prairie, QC J5R 0J2",
+    websiteUrl: "https://www.canyonescalade.com/",
+  },
+];
+
+module.exports = montrealGyms;

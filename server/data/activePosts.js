@@ -68,6 +68,61 @@ const activePosts = [
     levelTrad: "5.12c",
     requests: [],
   },
+  {
+    _id: "777",
+    author: "mark@mark1234.com",
+    authorBanner:
+      "https://images.unsplash.com/photo-1579454091757-05ccc063cc49?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29uJTIwbGFuZHNjYXBlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+    type: "outdoor",
+    text: "Hi! I am looking for a reliable partner to climb outside this summer. I am open with locations. I have gloves and a car. Hit me up and let's climb!",
+    levelSport: "5.12c",
+    levelTrad: "5.11d",
+    requests: [],
+  },
+  {
+    _id: "888",
+    author: "susan@susan1234.com",
+    authorBanner:
+      "https://images.unsplash.com/photo-1604537466573-5e94508fd243?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcnNvbiUyMGxhbmRzY2FwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    type: "indoor",
+    text: "Hi! I am looking for a reliable partner to climb at the gym everyweek. I am safe, have a gri gri and can belay for hours. Send me a request!",
+    levelSport: "5.13a",
+    levelTrad: "5.10c",
+    requests: [],
+  },
+  {
+    _id: "999",
+    author: "mary@mary1234",
+    authorBanner:
+      "https://images.unsplash.com/photo-1523975864490-174dd4d9a41e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzd8fHBlcnNvbiUyMGxhbmRzY2FwZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    type: "outdoor",
+    text: "Hi! I am looking for a reliable partner to climb outside for the first time. I have a car and I am mostly available on weekends. I am a beginner so nothing to crazy for the first time i guess.",
+    levelSport: "5.9",
+    levelTrad: "5.6",
+    requests: [],
+  },
+  {
+    _id: "1000",
+    author: "charles@charles1234.com",
+    authorBanner:
+      "https://images.unsplash.com/photo-1483666852720-824ca74c50ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI2fHxwZXJzb24lMjBsYW5kc2NhcGV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
+    type: "outdoor",
+    text: "Hi! I am looking for a reliable partner to climb outside in New Hampshire this spring. I have gear and car. I speak french, english ans spanish and can cook very well. I climb mostly sport but I love some moderate trad routes as well. ",
+    levelSport: "5.11a",
+    levelTrad: "5.9+",
+    requests: [],
+  },
+  {
+    _id: "1001",
+    author: "charles@charles1234.com",
+    authorBanner:
+      "https://images.unsplash.com/photo-1483666852720-824ca74c50ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI2fHxwZXJzb24lMjBsYW5kc2NhcGV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
+    type: "indoor",
+    text: "Hi! I am looking for a reliable partner to climb twice a week in the Montreal area. I have a year pass at Allez Up gym but don't mind going to other gyms. Mornings work better for me. ",
+    levelSport: "5.11a",
+    levelTrad: "5.9+",
+    requests: [],
+  },
 ];
 
 module.exports = activePosts;

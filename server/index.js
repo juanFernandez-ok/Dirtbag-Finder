@@ -11,6 +11,7 @@ const {
   getActivePostsByCategory,
   getActivePostsById,
   getActivePostsByUser,
+  getMtlGyms,
   getClosedPostsByUserId,
 } = require("./GetHandlers");
 
@@ -34,6 +35,7 @@ express()
   .get("/activePosts/:category", getActivePostsByCategory)
   .get("/post-details/:postId", getActivePostsById)
   .get("/user-activePosts/:email", getActivePostsByUser)
+  .get("/montreal-gyms", getMtlGyms)
   .get("/closedPosts/:userId", getClosedPostsByUserId)
 
   .post("/newUser", newUser)

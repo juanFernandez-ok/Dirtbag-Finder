@@ -52,6 +52,8 @@ const PostsFetch = ({ category }) => {
 
 const Wrapper = styled.div`
   width: 100vw;
+  height: 100vh;
+  overflow: auto;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
@@ -68,6 +70,7 @@ const ImgContainer = styled.div`
   overflow: hidden;
   margin-left: 80px;
   margin-right: 80px;
+  margin-bottom: 30px;
 `;
 
 const Img = styled.img`
