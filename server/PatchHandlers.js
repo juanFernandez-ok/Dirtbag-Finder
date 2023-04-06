@@ -16,8 +16,7 @@ const editProfile = async (req, res) => {
     await client.connect();
     const db = client.db("dirtBag");
 
-    // update user info
-
+    // this updates user info
     const query = { _id: req.body._id };
     const update = {
       $set: {

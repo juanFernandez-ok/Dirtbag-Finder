@@ -87,21 +87,21 @@ setTradText(currentUser.profile.levelTrad)
           <BioWrapper>
             <BioDiv>
               <TextBox
-                value={bioText}
+                defaultValue={bioText}
                 maxLength={300}
                 onChange={handleBioText}
               ></TextBox>
             </BioDiv>
             <CategoriesDiv>
               <In
-                value={indoorColor}
+                defaultValue={indoorColor}
                 bcColor={indoorColor}
                 onClick={handleClick}
               >
                 indoors
               </In>
               <Out
-                value={outdoorColor}
+                defaultValue={outdoorColor}
                 bcColor1={outdoorColor}
                 onClick={handleClick1}
               >
@@ -112,7 +112,7 @@ setTradText(currentUser.profile.levelTrad)
               <Sport>
                 sport
                 <SportText
-                  value={sportText}
+                  defaultValue={sportText}
                   maxLength={5}
                   onChange={handleSportText}
                 ></SportText>
@@ -120,7 +120,7 @@ setTradText(currentUser.profile.levelTrad)
               <Trad>
                 trad
                 <TradText
-                  value={tradText}
+                  defaultValue={tradText}
                   maxLength={5}
                   onChange={handleTradText}
                 ></TradText>

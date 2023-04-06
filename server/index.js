@@ -42,7 +42,7 @@ express()
 
   .patch("/edit-profile", editProfile)
 
-  .delete("/delete-post", deletePost)
+  .delete("/delete-post/:postId", deletePost)
 
 
   .get("/test", (req, res) => {

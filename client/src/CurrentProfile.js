@@ -105,7 +105,7 @@ const BioDiv = styled.div`
   margin-top: 20px;
 `;
 
-const TextBox = styled.textarea`
+const TextBox = styled.div`
   resize: none;
   width: 650px;
   height: 150px;

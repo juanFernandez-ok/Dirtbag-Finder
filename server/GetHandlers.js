@@ -38,7 +38,6 @@ const getUserById = async (req, res) => {
     const myId = String(req.params.userId);
 
     const user = await db.collection("users").findOne({ _id: myId });
-
     user
       ? res.status(200).json({ status: 200, data: user })
       : res
@@ -136,7 +135,6 @@ const getActivePostsByUser = async (req, res) => {
     const userEmail = String(req.params.email);
 
     const allActivePosts = await db.collection("activePosts").find({author: userEmail}).toArray();
-
     allActivePosts
       ? res.status(200).json({ status: 200, data: allActivePosts })
       : res

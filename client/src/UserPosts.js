@@ -2,14 +2,17 @@ import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import ProfileHeader from "./ProfileHeader";
 import bannerImg from "./images/defaultBanner.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { FiTrash2 } from "react-icons/fi";
+import DeletePostPrompt from "./DeletePostPrompt";
 
 const UserPosts = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [postings, setPostings] = useState();
-//   const [indoorReq, setIndoorReq] = useState();
-//   const [outdoorReq, setOutdoorReq] = useState();
+  const [promptMessage, setPromptMessage] = useState(null);
+  const [prompt, setPrompt] = useState(false);
+  const [category, setCategory] = useState(null);
 
   useEffect(() => {
     if (currentUser) {
@@ -28,13 +31,92 @@ const UserPosts = () => {
     }
   }, []);
 
-const myRequests = postings && postings.map((item) => {return item.requests})
-const indoorReq = myRequests && myRequests.find((e) => {return e[0].type === "indoor"})
-const outdoorReq = myRequests && myRequests.find((e) => {return e[0].type === "outdoor"})
+  const indoorCheck =
+    postings &&
+    postings.some((el) => {
+      return el.type === "indoor";
+    });
+  const outdoorCheck =
+    postings &&
+    postings.some((el) => {
+      return el.type === "outdoor";
+    });
+
+    console.log(indoorCheck);
+    console.log(outdoorCheck);
+
+  const myPendings =
+    postings &&
+    postings.map((item) => {
+      return item.requests;
+    });
+
+  postings && console.log(postings);
+  myPendings && console.log(myPendings);
+
+  let outArr;
+  if (outdoorCheck && postings) {
+  outArr = postings && postings.filter((el) => {
+return el.type === "outdoor"
+  })}
+  let inArr;
+  if (indoorCheck && postings) {
+  inArr = postings && postings.filter((el) => {
+return el.type === "indoor"
+  })}
+
+
+//   postings && console.log(outArr[0].requests.length);
+
+  let indoorPendings;
+  if ((indoorCheck === true) && (inArr[0].requests.length > 0)) {
+    indoorPendings = myPendings.find((e) => {
+      return e[0].type === "indoor";
+    });
+  }
+
+  let outdoorPendings;
+  if ((outdoorCheck === true) && (outArr[0].requests.length > 0)) {
+    outdoorPendings = myPendings.find((e) => {
+      return e[0].type === "outdoor";
+    });
+  }
+
+  const handleTrashClick = (type) => {
+    setCategory(type);
+    setPrompt(true);
+    setPromptMessage(`Are you sure you want to delete your ${type} post?`);
+  };
+
+  let postForDelete;
+  const handlePromptClick = (e) => {
+    if (e.target.value === "cancel") {
+      setPrompt(false);
+    } else if (e.target.value === "delete") {
+      postForDelete = postings.find((e) => {
+        return e.type === category;
+      });
+      setPrompt(false);
+      handleDelete();
+    }
+  };
+
+  const handleDelete = () => {
+    fetch(`/delete-post/${postForDelete._id}`, {
+      method: "DELETE",
+      body: JSON.stringify({ userId: currentUser._id }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then((data) => {
+        console.log(data);
+    });
+  };
 
   return (
     <>
-      {!currentUser && !postings && !myRequests ? (
+      {!currentUser && !postings && !myPendings ? (
         <h1>Loading...</h1>
       ) : (
         <Wrapper>
@@ -45,24 +127,65 @@ const outdoorReq = myRequests && myRequests.find((e) => {return e[0].type === "o
                 !currentUser.bannerUrl ? bannerImg : currentUser.bannerUrl
               })`,
             }}
-          ></Banner>
+          >
+            {prompt === true && (
+              <DeletePostPrompt
+                promptMessage={promptMessage}
+                handlePromptClick={handlePromptClick}
+              />
+            )}
+          </Banner>
           <InfoDiv>
             <TitleDiv>
+              <IndoorTrash
+                disabled={!indoorCheck}
+                onClick={() => handleTrashClick("indoor")}
+              >
+                <FiTrash2 />
+              </IndoorTrash>
               <Title>my Posts</Title>
+              <OutdoorTrash
+                disabled={!outdoorCheck}
+                onClick={() => handleTrashClick("outdoor")}
+              >
+                <FiTrash2 />
+              </OutdoorTrash>
             </TitleDiv>
           </InfoDiv>
           <PostsDiv>
             <Indoorwrapper>
               <IndoorPost>indoor post Pendings</IndoorPost>
-              {indoorReq ? indoorReq.map((item) => {
-                return  <PendingWrapper><Avatar src={item.userBanner}/>{item.email}</PendingWrapper>
-              }) : <p>you have no indoor pendings at this moment</p>}
+              {indoorPendings ? (
+                indoorPendings.map((item) => {
+                  return (
+                    <Link key={item._id} to={`/profile/${item._id}`}>
+                      <PendingWrapper>
+                        <Avatar src={item.userBanner} />
+                        {item.email}
+                      </PendingWrapper>
+                    </Link>
+                  );
+                })
+              ) : (
+                <p>you have no indoor pendings at this moment</p>
+              )}
             </Indoorwrapper>
             <Outdoorwrapper>
               <OutdoorPost>outdoor post Pendings</OutdoorPost>
-              {outdoorReq ? outdoorReq.map((item) => {
-                return <PendingWrapper><Avatar src={item.userBanner}/>{item.email}</PendingWrapper>
-              }) : <p>you have no outdoor pendings at this moment</p>}
+              {outdoorPendings ? (
+                outdoorPendings.map((item) => {
+                  return (
+                    <Link key={item._id} to={`/profile/${item._id}`}>
+                      <PendingWrapper >
+                        <Avatar src={item.userBanner} />
+                        {item.email}
+                      </PendingWrapper>
+                    </Link>
+                  );
+                })
+              ) : (
+                <p>you have no outdoor pendings at this moment</p>
+              )}
             </Outdoorwrapper>
           </PostsDiv>
         </Wrapper>
@@ -79,6 +202,9 @@ const Banner = styled.div`
   background-size: cover;
   background-position: 60%;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const InfoDiv = styled.div`
@@ -87,10 +213,25 @@ const InfoDiv = styled.div`
 const TitleDiv = styled.div`
   width: 100vw;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: flex-end;
 `;
+const IndoorTrash = styled.button`
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  border: none;
+  background-color: white;
+  :disabled {
+    cursor: not-allowed;
+  }
+  cursor: pointer;
+`;
+const OutdoorTrash = styled(IndoorTrash)``;
+
 const Title = styled.h1`
-  margin-top: 20px;
+  margin-top: 10px;
   font-family: "Raleway", sans-serif;
   width: 200px;
   font-weight: 100;
@@ -103,17 +244,19 @@ const Title = styled.h1`
   color: #ebe8e2;
   border-radius: 30px;
 `;
-
 const PostsDiv = styled.div`
   width: 100vw;
   display: flex;
   justify-content: space-between;
 `;
+
 const Indoorwrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 400px;
   margin-left: 150px;
 `;
+
 const Outdoorwrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -134,7 +277,7 @@ const PendingWrapper = styled.div`
   width: 290px;
   height: 40px;
   margin-top: 20px;
-`
+`;
 const Avatar = styled.img`
   width: 50px;
   height: 50px;

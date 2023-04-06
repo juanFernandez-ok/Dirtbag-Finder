@@ -89,7 +89,7 @@ const CreatePost = () => {
             <PostDiv>
               <P1>Please write a post description below</P1>
               <TextBox
-                value={postText}
+                defaultValue={postText}
                 maxLength={300}
                 onChange={handlePostText}
               ></TextBox>

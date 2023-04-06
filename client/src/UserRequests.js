@@ -7,7 +7,7 @@ import { CurrentUserContext } from "./CurrentUserContext";
 
 const UserRequests = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-console.log(currentUser);
+
   return (
     <>
       {!currentUser ? (
@@ -36,7 +36,7 @@ console.log(currentUser);
                 })
                 .map((item) => {
                   return (
-                    <Link to={`/post-details/${item.postId}`}><RequestWrapper>
+                    <Link key={item.postId} to={`/post-details/${item.postId}`}><RequestWrapper>
                       <Avatar src={item.authorBanner} />
                       {item.author}
                     </RequestWrapper></Link>
@@ -51,7 +51,7 @@ console.log(currentUser);
                 })
                 .map((item) => {
                   return (
-                    <Link to={`/post-details/${item.postId}`}><RequestWrapper>
+                    <Link key={item.postId} to={`/post-details/${item.postId}`}><RequestWrapper>
                       <Avatar src={item.authorBanner} />
                       {item.author}
                     </RequestWrapper></Link>

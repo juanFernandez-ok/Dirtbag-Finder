@@ -138,7 +138,6 @@ const newPost = async (req, res) => {
         message: "Missing information",
       });
     }
-
     // this verifies that the user doesn't already have an active post in the category
     const findPost = await db
       .collection("activePosts")
@@ -157,7 +156,7 @@ const newPost = async (req, res) => {
         });
       }
     }
-
+// this creates a new post in the activePosts collection
     const postResult = {
       _id: newId,
       author: req.body.author,
@@ -172,6 +171,12 @@ const newPost = async (req, res) => {
     const createNewPost = await db
       .collection("activePosts")
       .insertOne(postResult);
+
+// this updates currentUser active posts in the users collection
+const userPostUpdate = await db
+.collection("users")
+.updateOne({email: req.body.author },{ $push: { activePosts: newId } });
+
 
     createNewPost
       ? res
