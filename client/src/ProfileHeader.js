@@ -6,11 +6,24 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { CurrentUserContext } from "./CurrentUserContext";
 
 const ProfileHeader = () => {
-  const { logout, isAuthenticated } = useAuth0();
+  const { logout, isAuthenticated, user } = useAuth0();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [isPageLoading, setIsPageLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const storedUser = window.sessionStorage.getItem('user');
+  //   if (storedUser) {
+  //     setCurrentUser(JSON.parse(storedUser));
+  //   }
+  //   setIsPageLoading(false);
+  // }, []);
+  
+  // if (isPageLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
-    <>
+    <>{!currentUser ? (<h1>Loading...</h1>) : (
       <Wrapper>
         <LeftDiv>
           <StyledLink to="/home">Dirtbag Finder</StyledLink>
@@ -18,16 +31,15 @@ const ProfileHeader = () => {
         </LeftDiv>
         <RightDiv>
           <Title>{currentUser?.lastName}</Title>
-          {isAuthenticated && (
             <OutDiv>
               <LogoutBtn onClick={() => {logout(); window.sessionStorage.removeItem("user"); setCurrentUser(null)}}>Log Out</LogoutBtn>
             </OutDiv>
-          )}
           <UserLink to="/profile">
             <FiUser />
           </UserLink>
         </RightDiv>
       </Wrapper>
+      )}
     </>
   );
 };

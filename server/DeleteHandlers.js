@@ -53,9 +53,7 @@ const deletePost = async (req, res) => {
       .updateOne({ _id: currentUserId }, { $pull: { activePosts: myId } });
 
     // this insert post to the closedPosts collection
-    const moveToClosed = await db
-      .collection("closedPosts")
-      .insertOne(findPost);
+    const moveToClosed = await db.collection("closedPosts").insertOne(findPost);
 
     // this delete the post from the activePosts collection
     const deletePost = await db
@@ -74,6 +72,45 @@ const deletePost = async (req, res) => {
   client.close();
 };
 
+// DELETE REQUEST
+const deleteRequest = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("dirtBag");
+    const postId = String(req.params.postId);
+    const currentUserId = String(req.body.userId);
+
+    // this removes request from currentUser document
+    const removePendingRequest = await db
+      .collection("users")
+      .updateOne(
+        { _id: currentUserId },
+        { $pull: { pendingRequests: { _id: postId } } }
+      );
+
+    // this removes request from the activePost
+    const removeRequestFromPost = await db
+      .collection("activePosts")
+      .updateOne(
+        { _id: postId },
+        { $pull: { requests: { _id: currentUserId } } }
+      );
+
+    removeRequestFromPost
+      ? res.status(200).json({ status: 200, message: "Request deleted" })
+      : res
+          .status(400)
+          .json({ status: 400, message: "Nothing was found here" });
+  } catch (error) {
+    console.error("Failed to connect to MongoDB:", error);
+    res.status(500).json({ status: 500, message: error });
+  } finally {
+    client.close();
+  }
+};
+
 module.exports = {
   deletePost,
+  deleteRequest,
 };

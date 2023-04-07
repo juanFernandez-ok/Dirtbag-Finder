@@ -35,6 +35,7 @@ const CurrentUserProvider = ({ children }) => {
     }
   }, [isAuthenticated]);
 
+
   useEffect(() => {
     const myUser = window.sessionStorage.getItem("user");
     if (myUser) {

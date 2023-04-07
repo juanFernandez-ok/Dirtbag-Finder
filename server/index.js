@@ -17,7 +17,7 @@ const {
 
 const {newUser, newRequest, newPost} = require("./PostHandlers")
 const {editProfile} = require("./PatchHandlers")
-const {deletePost} = require("./DeleteHandlers")
+const {deletePost, deleteRequest} = require("./DeleteHandlers")
 
 express()
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
@@ -45,6 +45,7 @@ express()
   .patch("/edit-profile", editProfile)
 
   .delete("/delete-post/:postId", deletePost)
+  .delete("/delete-request/:postId", deleteRequest)
 
 
   .get("/test", (req, res) => {

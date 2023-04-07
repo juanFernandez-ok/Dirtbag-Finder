@@ -17,11 +17,9 @@ const PostDetailsHeader = ({category}) => {
         </LeftDiv>
         <RightDiv>
           <Title>Partners</Title>
-          {isAuthenticated && (
             <OutDiv>
               <LogoutBtn onClick={() => logout()}>Log Out</LogoutBtn>
             </OutDiv>
-          )}
           <UserLink to="/profile">
             <FiUser />
           </UserLink>

@@ -5,7 +5,7 @@ import bannerImg from "./images/defaultBanner.png";
 import { Link } from "react-router-dom";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { FiTrash2 } from "react-icons/fi";
-import DeletePostPrompt from "./DeletePostPrompt";
+import DeletePrompt from "./DeletePrompt";
 
 const UserPosts = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
@@ -42,9 +42,6 @@ const UserPosts = () => {
       return el.type === "outdoor";
     });
 
-  console.log(indoorCheck);
-  console.log(outdoorCheck);
-
   const myPendings =
     postings &&
     postings.map((item) => {
@@ -70,8 +67,6 @@ const UserPosts = () => {
         return el.type === "indoor";
       });
   }
-
-  //   postings && console.log(outArr[0].requests.length);
 
   let indoorPendings;
   if (indoorCheck === true && inArr[0].requests.length > 0) {
@@ -134,29 +129,27 @@ const UserPosts = () => {
             }}
           >
             {prompt === true && (
-              <DeletePostPrompt
+              <DeletePrompt
                 promptMessage={promptMessage}
                 handlePromptClick={handlePromptClick}
               />
             )}
           </Banner>
-          <InfoDiv>
-            <TitleDiv>
-              <IndoorTrash
-                disabled={!indoorCheck}
-                onClick={() => handleTrashClick("indoor")}
-              >
-                <FiTrash2 />
-              </IndoorTrash>
-              <Title>my Posts</Title>
-              <OutdoorTrash
-                disabled={!outdoorCheck}
-                onClick={() => handleTrashClick("outdoor")}
-              >
-                <FiTrash2 />
-              </OutdoorTrash>
-            </TitleDiv>
-          </InfoDiv>
+          <TitleDiv>
+            <IndoorTrash
+              disabled={!indoorCheck}
+              onClick={() => handleTrashClick("indoor")}
+            >
+              <FiTrash2 />
+            </IndoorTrash>
+            <Title>my Posts</Title>
+            <OutdoorTrash
+              disabled={!outdoorCheck}
+              onClick={() => handleTrashClick("outdoor")}
+            >
+              <FiTrash2 />
+            </OutdoorTrash>
+          </TitleDiv>
           <PostsDiv>
             <Indoorwrapper>
               <IndoorPost>indoor post Pendings</IndoorPost>
@@ -212,9 +205,6 @@ const Banner = styled.div`
   align-items: center;
 `;
 
-const InfoDiv = styled.div`
-  display: flex;
-`;
 const TitleDiv = styled.div`
   width: 100vw;
   display: flex;
@@ -259,13 +249,11 @@ const Indoorwrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 400px;
-  margin-left: 150px;
+  margin-left: 170px;
 `;
 
-const Outdoorwrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: 150px;
+const Outdoorwrapper = styled(Indoorwrapper)`
+  margin-right: 170px;
 `;
 const IndoorPost = styled.div`
   background-color: #f2ae1c;

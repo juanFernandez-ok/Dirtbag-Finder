@@ -98,7 +98,7 @@ const newRequest = async (req, res) => {
 
     // this creates a new pending request in the currentUser document
     const newPendingRequest = {
-      postId: String(req.body.postId),
+      _id: String(req.body.postId),
       author: findPost.author,
       authorBanner: findPost.authorBanner,
       type: findPost.type,

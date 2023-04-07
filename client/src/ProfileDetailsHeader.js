@@ -16,11 +16,11 @@ const ProfileDetailsHeader = ({firstName, lastName}) => {
         </LeftDiv>
         <RightDiv>
           <Title>{lastName[0].toUpperCase()+lastName.slice(1).toLowerCase()}</Title>
-          {isAuthenticated && (
+          {/* {isAuthenticated && ( */}
             <OutDiv>
               <LogoutBtn onClick={() => logout()}>Log Out</LogoutBtn>
             </OutDiv>
-          )}
+          {/* )} */}
           <UserLink to="/profile">
             <FiUser />
           </UserLink>

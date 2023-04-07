@@ -2,11 +2,49 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import ProfileHeader from "./ProfileHeader";
 import bannerImg from "./images/defaultBanner.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { FiTrash2 } from "react-icons/fi";
+import DeletePrompt from "./DeletePrompt";
 
 const UserRequests = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [promptMessage, setPromptMessage] = useState(null);
+  const [prompt, setPrompt] = useState(false);
+  const [postNum, setPostNum] = useState(null);
+
+  console.log(currentUser);
+
+  const handleTrashClick = (num) => {
+    setPrompt(true);
+    setPostNum(num);
+    setPromptMessage(`Are you sure you want to delete your request?`);
+    console.log(postNum);
+  };
+
+  const handlePromptClick = (e) => {
+    if (e.target.value === "cancel") {
+      setPrompt(false);
+    } else if (e.target.value === "delete") {
+      setPrompt(false);
+      handleDelete();
+    }
+  };
+
+  postNum && console.log(postNum);
+
+  const handleDelete = () => {
+    fetch(`/delete-request/${postNum}`, {
+      method: "DELETE",
+      body: JSON.stringify({ userId: currentUser._id }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then((data) => {
+      console.log(data);
+    });
+  };
 
   return (
     <>
@@ -21,43 +59,65 @@ const UserRequests = () => {
                 !currentUser.bannerUrl ? bannerImg : currentUser.bannerUrl
               })`,
             }}
-          ></Banner>
-          <InfoDiv>
-            <TitleDiv>
-              <Title>my Requests</Title>
-            </TitleDiv>
-          </InfoDiv>
+          >
+            {prompt === true && (
+              <DeletePrompt
+                promptMessage={promptMessage}
+                handlePromptClick={handlePromptClick}
+              />
+            )}
+          </Banner>
+          <MainTitleDiv>
+            <Title>my Requests</Title>
+          </MainTitleDiv>
+          <CategoriesTitlesDiv>
+            <IndoorRequests>my indoor Requests</IndoorRequests>
+            <OutdoorRequests>my outdoor Requests</OutdoorRequests>
+          </CategoriesTitlesDiv>
+
           <MainDiv>
-            <Indoorwrapper>
-              <IndoorRequests>my indoor Requests</IndoorRequests>
+            <LeftMain>
               {currentUser.pendingRequests
                 .filter((item) => {
                   return item.type === "indoor";
                 })
                 .map((item) => {
                   return (
-                    <Link key={item.postId} to={`/post-details/${item.postId}`}><RequestWrapper>
-                      <Avatar src={item.authorBanner} />
-                      {item.author}
-                    </RequestWrapper></Link>
+                    <LeftDiv key={item._id}>
+                      <TrashCan onClick={() => handleTrashClick(item._id)}>
+                        <FiTrash2 />
+                      </TrashCan>
+                      <Link to={`/post-details/${item._id}`}>
+                        <RequestWrapper>
+                          <Avatar src={item.authorBanner} />
+                          {item.author}
+                        </RequestWrapper>
+                      </Link>
+                    </LeftDiv>
                   );
                 })}
-            </Indoorwrapper>
-            <Outdoorwrapper>
-              <OutdoorRequests>my outdoor Requests</OutdoorRequests>
+            </LeftMain>
+            <RightMain>
               {currentUser.pendingRequests
                 .filter((item) => {
                   return item.type === "outdoor";
                 })
                 .map((item) => {
                   return (
-                    <Link key={item.postId} to={`/post-details/${item.postId}`}><RequestWrapper>
-                      <Avatar src={item.authorBanner} />
-                      {item.author}
-                    </RequestWrapper></Link>
+                    <RightDiv key={item._id}>
+                      <TrashCan onClick={() => handleTrashClick(item._id)}>
+                        <FiTrash2 />
+                      </TrashCan>
+                      <Link to={`/post-details/${item._id}`}>
+                        <RequestWrapper>
+                          <Avatar src={item.authorBanner} />
+                          {item.author}
+                        </RequestWrapper>
+                      </Link>
+                    </RightDiv>
                   );
                 })}
-            </Outdoorwrapper>
+            </RightMain>
           </MainDiv>
         </Wrapper>
       )}
@@ -73,12 +133,12 @@ const Banner = styled.div`
   background-size: cover;
   background-position: 60%;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const InfoDiv = styled.div`
-  display: flex;
-`;
-const TitleDiv = styled.div`
+const MainTitleDiv = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -98,22 +158,12 @@ const Title = styled.h1`
   border-radius: 30px;
 `;
 
-const MainDiv = styled.div`
-  width: 100vw;
+const CategoriesTitlesDiv = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100vw;
 `;
-const Indoorwrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 150px;
-  width: 300px;
-`;
-const Outdoorwrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: 150px;
-`;
+
 const IndoorRequests = styled.div`
   background-color: #f2ae1c;
   padding: 10px 30px;
@@ -121,8 +171,43 @@ const IndoorRequests = styled.div`
   display: flex;
   justify-content: center;
   width: 250px;
+  margin-left: 230px;
 `;
-const OutdoorRequests = styled(IndoorRequests)``;
+const OutdoorRequests = styled(IndoorRequests)`
+  margin-right: 230px;
+`;
+
+const MainDiv = styled.div`
+  width: 100vw;
+  display: flex;
+`;
+
+const LeftMain = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const RightMain = styled(LeftMain)``;
+
+const TrashCan = styled.div`
+  display: flex;
+  margin-right: 30px;
+  font-size: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  z-index: 50;
+`;
+
+const LeftDiv = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const RightDiv = styled(LeftDiv)``;
 
 const RequestWrapper = styled.div`
   display: flex;

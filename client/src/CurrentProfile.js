@@ -10,40 +10,48 @@ const CurrentProfile = () => {
 
   return (
     <>
-    {!currentUser ? (<h1>Loading...</h1>) : 
-    (
-      <div>
-      <ProfileHeader />
-      <Banner style={{
-              backgroundImage: `url(${!currentUser.profile.bannerUrl ? bannerImg : currentUser.profile.bannerUrl})`}}></Banner>
-      <LeftDiv>
-        <StyledLink to="/create-post">make a post</StyledLink>
-        <StyledLink to="/user-posts">my postings</StyledLink>
-        <StyledLink to="/user-requests">my requests</StyledLink>
-        <StyledLink to="/past-partners">my past partners</StyledLink>
-      </LeftDiv>
-      <BioWrapper>
-        <BioDiv>
-          <TextBox readOnly>{currentUser.profile.bio}</TextBox>
-        </BioDiv>
-        <CategoriesDiv>
-          <In climb={currentUser.profile.indoor}>indoors</In>
-          <Out climb={currentUser.profile.outdoor}>outdoors</Out>
-        </CategoriesDiv>
-        <LevelsDiv>
-          <Sport>
-            sport<div>{currentUser.profile.levelSport}</div>
-          </Sport>
-          <Trad>
-            trad<div>{currentUser.profile.levelTrad}</div>
-          </Trad>
-        </LevelsDiv>
-      </BioWrapper>
+      {!currentUser ? (
+        <h1>Loading...</h1>
+      ) : (
+        <div>
+          <ProfileHeader />
+          <Banner
+            style={{
+              backgroundImage: `url(${
+                !currentUser.profile.bannerUrl
+                  ? bannerImg
+                  : currentUser.profile.bannerUrl
+              })`,
+            }}
+          ></Banner>
+          <LeftDiv>
+            <StyledLink to="/create-post">make a post</StyledLink>
+            <StyledLink to="/user-posts">my postings</StyledLink>
+            <StyledLink to="/user-requests">my requests</StyledLink>
+            <StyledLink to="/past-partners">my past partners</StyledLink>
+          </LeftDiv>
+          <BioWrapper>
+            <BioDiv>
+              <TextBox readOnly>{currentUser.profile.bio}</TextBox>
+            </BioDiv>
+            <CategoriesDiv>
+              <In climb={currentUser.profile.indoor}>indoors</In>
+              <Out climb={currentUser.profile.outdoor}>outdoors</Out>
+            </CategoriesDiv>
+            <LevelsDiv>
+              <Sport>
+                sport<div>{currentUser.profile.levelSport}</div>
+              </Sport>
+              <Trad>
+                trad<div>{currentUser.profile.levelTrad}</div>
+              </Trad>
+            </LevelsDiv>
+          </BioWrapper>
 
-      <Div>
-        <EditLink to="/edit-profile">edit profile</EditLink>
-      </Div>
-      </div>
+          <Div>
+            <EditLink to="/edit-profile">edit profile</EditLink>
+          </Div>
+        </div>
       )}
     </>
   );
@@ -93,7 +101,6 @@ const BioWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 `;
 
 const BioDiv = styled.div`
