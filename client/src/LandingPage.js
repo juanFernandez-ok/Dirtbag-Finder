@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
+import { useEffect } from "react";
 import myImage from "./images/dirtbag.png";
 import carabinerImg from "./images/carabiner.png";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -67,19 +67,6 @@ const GreenDiv = styled.div`
   align-items: center;
   justify-content: flex-end;
 `;
-
-const P1 = styled.h1`
-  margin-right: 13px;
-  font-size: 80px;
-  margin-top: 250px;
-`;
-
-const P2 = styled.h1`
-  margin-left: 10px;
-  font-size: 80px;
-  margin-top: 250px;
-`;
-
 const YellowDiv = styled.div`
   width: 25vw;
   height: 100vh;
@@ -87,6 +74,16 @@ const YellowDiv = styled.div`
   color: #4c7031;
   display: flex;
   align-items: center;
+`;
+
+const P1 = styled.h1`
+  margin-right: 13px;
+  font-size: 80px;
+  margin-top: 250px;
+`;
+
+const P2 = styled(P1)`
+  margin-left: 10px;
 `;
 
 const ImageDiv = styled.div`

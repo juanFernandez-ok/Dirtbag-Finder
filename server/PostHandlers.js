@@ -177,7 +177,6 @@ const userPostUpdate = await db
 .collection("users")
 .updateOne({email: req.body.author },{ $push: { activePosts: newId } });
 
-
     createNewPost
       ? res
           .status(200)

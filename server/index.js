@@ -47,11 +47,6 @@ express()
   .delete("/delete-post/:postId", deletePost)
   .delete("/delete-request/:postId", deleteRequest)
 
-
-  .get("/test", (req, res) => {
-    res.status(200).json({ data: "hello" });
-  })
-
   // this is my catch all endpoint.
   .get("*", (req, res) => {
     res.status(404).json({

@@ -3,41 +3,30 @@ import { useEffect, useState, useContext } from "react";
 import carabinerImg from "./images/carabiner.png";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "./CurrentUserContext";
 
 const Home = () => {
   const { logout, isAuthenticated, user } = useAuth0();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const navigate = useNavigate();
   const [isPageLoading, setIsPageLoading] = useState(true);
 
-  
-
   // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate("/");
+  //   const storedUser = window.sessionStorage.getItem('user');
+  //   if (storedUser) {
+  //     setCurrentUser(JSON.parse(storedUser));
   //   }
+  //   setIsPageLoading(false);
   // }, []);
-
-  useEffect(() => {
-    const storedUser = window.sessionStorage.getItem('user');
-    if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
-    }
-    setIsPageLoading(false);
-  }, []);
   
-  if (isPageLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isPageLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <Wrapper>
       <LeftDiv>
         <Carabiner src={carabinerImg} />
         <H1>dirtbag finder</H1>
-        {/* {isAuthenticated && ( */}
           <LogoutBtn
             onClick={() => {
               logout();
@@ -47,7 +36,6 @@ const Home = () => {
           >
             Log Out
           </LogoutBtn>
-        {/* )} */}
       </LeftDiv>
       <RightDiv>
         <Link to="/profile">

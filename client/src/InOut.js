@@ -1,10 +1,8 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import gymImg from "./images/gymBanner.png";
-import outBanner from "./images/outBanner3.png";
 import outBanner4 from "./images/outBanner4.png";
-import outBanner5 from "./images/outBanner5.png";
+
 
 const InOut = () => {
   return (

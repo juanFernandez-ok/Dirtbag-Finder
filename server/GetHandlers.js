@@ -169,6 +169,7 @@ const getClosedPostsByUserId = async (req, res) => {
   client.close();
 };
 
+// GET MONTREAL GYMS DATA
 const getMtlGyms = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   try {

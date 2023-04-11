@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -10,17 +10,17 @@ const ProfileHeader = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [isPageLoading, setIsPageLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const storedUser = window.sessionStorage.getItem('user');
-  //   if (storedUser) {
-  //     setCurrentUser(JSON.parse(storedUser));
-  //   }
-  //   setIsPageLoading(false);
-  // }, []);
+  useEffect(() => {
+    const storedUser = window.sessionStorage.getItem('user');
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+    }
+    setIsPageLoading(false);
+  }, []);
   
-  // if (isPageLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (isPageLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>{!currentUser ? (<h1>Loading...</h1>) : (
@@ -31,9 +31,9 @@ const ProfileHeader = () => {
         </LeftDiv>
         <RightDiv>
           <Title>{currentUser?.lastName}</Title>
-            <OutDiv>
+            <LogOutDiv>
               <LogoutBtn onClick={() => {logout(); window.sessionStorage.removeItem("user"); setCurrentUser(null)}}>Log Out</LogoutBtn>
-            </OutDiv>
+            </LogOutDiv>
           <UserLink to="/profile">
             <FiUser />
           </UserLink>
@@ -67,14 +67,8 @@ const LeftDiv = styled.div`
   align-items: center;
   color: #4c7031;
 `;
-const RightDiv = styled.div`
+const RightDiv = styled(LeftDiv)`
   background-color: #4c7031;
-  width: 50vw;
-  height: 8vh;
-  font-family: "Ovo", serif;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   color: #f2ae1c;
 `;
 const Title = styled.p`
@@ -93,7 +87,7 @@ const UserLink = styled(Link)`
   }
 `;
 
-const OutDiv = styled.div`
+const LogOutDiv = styled.div`
   width: 100vw;
   display: flex;
   justify-content: flex-end;

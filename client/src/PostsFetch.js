@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import defaultBanner from "./images/defaultBanner.png";
@@ -38,7 +38,7 @@ const PostsFetch = ({ category }) => {
                   <span>trad</span>
                 </Category>
                 <Category>
-                  <span>{item.levelSport}</span>
+                  <span>{!item.levelSport ? "-" : item.levelSport}</span>
                   <span>{!item.levelTrad ? "-" : item.levelTrad}</span>
                 </Category>
               </ImgContainer>

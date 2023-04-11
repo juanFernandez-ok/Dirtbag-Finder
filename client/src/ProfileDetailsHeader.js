@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -16,11 +15,9 @@ const ProfileDetailsHeader = ({firstName, lastName}) => {
         </LeftDiv>
         <RightDiv>
           <Title>{lastName[0].toUpperCase()+lastName.slice(1).toLowerCase()}</Title>
-          {/* {isAuthenticated && ( */}
-            <OutDiv>
+            <LogOutDiv>
               <LogoutBtn onClick={() => logout()}>Log Out</LogoutBtn>
-            </OutDiv>
-          {/* )} */}
+            </LogOutDiv>
           <UserLink to="/profile">
             <FiUser />
           </UserLink>
@@ -53,14 +50,8 @@ const LeftDiv = styled.div`
   align-items: center;
   color: #4c7031;
 `;
-const RightDiv = styled.div`
+const RightDiv = styled(LeftDiv)`
   background-color: #4c7031;
-  width: 50vw;
-  height: 8vh;
-  font-family: "Ovo", serif;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   color: #f2ae1c;
 `;
 const Title = styled.p`
@@ -78,7 +69,7 @@ const UserLink = styled(Link)`
     color: #ebe8e2;
   }
 `;
-const OutDiv = styled.div`
+const LogOutDiv = styled.div`
   width: 100vw;
   display: flex;
   justify-content: flex-end;

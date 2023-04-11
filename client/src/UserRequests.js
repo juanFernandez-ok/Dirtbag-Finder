@@ -13,8 +13,6 @@ const UserRequests = () => {
   const [prompt, setPrompt] = useState(false);
   const [postNum, setPostNum] = useState(null);
 
-  console.log(currentUser);
-
   const handleTrashClick = (num) => {
     setPrompt(true);
     setPostNum(num);
@@ -30,8 +28,6 @@ const UserRequests = () => {
       handleDelete();
     }
   };
-
-  postNum && console.log(postNum);
 
   const handleDelete = () => {
     fetch(`/delete-request/${postNum}`, {
@@ -74,7 +70,6 @@ const UserRequests = () => {
             <IndoorRequests>my indoor Requests</IndoorRequests>
             <OutdoorRequests>my outdoor Requests</OutdoorRequests>
           </CategoriesTitlesDiv>
-
           <MainDiv>
             <LeftMain>
               {currentUser.pendingRequests

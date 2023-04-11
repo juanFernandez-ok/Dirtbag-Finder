@@ -1,8 +1,7 @@
-import { useEffect, useState, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ProfileDetailsHeader from "./ProfileDetailsHeader";
-import defaultBanner from "./images/defaultBanner.png";
 
 const ProfileDetails = () => {
   const [profileInfo, setProfileInfo] = useState();
@@ -117,14 +116,9 @@ const In = styled.div`
   text-align: center;
   padding: 15px;
 `;
-const Out = styled.div`
-  width: 130px;
-  height: 50px;
-  border-radius: 30px;
+const Out = styled(In)`
   background-color: ${(props) =>
     props.outdoor === true ? "#4c7031" : "antiquewhite"};
-  text-align: center;
-  padding: 15px;
 `;
 const LevelsDiv = styled.div`
   width: 300px;
@@ -139,9 +133,7 @@ const Sport = styled.div`
   flex-direction: column;
 `;
 
-const Trad = styled.div`
-  display: flex;
-  flex-direction: column;
+const Trad = styled(Sport)`
 `;
 
 export default ProfileDetails;

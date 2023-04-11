@@ -8,10 +8,8 @@ import PostDetails from "./PostDetails";
 import CurrentProfile from "./CurrentProfile";
 import InOut from "./InOut";
 import ProfileDetails from "./ProfileDetails";
-import CreatePost from "./CreatePost"
+import CreatePost from "./CreatePost";
 import UserPosts from "./UserPosts";
-import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { useContext } from "react";
@@ -19,7 +17,6 @@ import EditProfile from "./EditProfile";
 import UserRequests from "./UserRequests";
 import PastPartners from "./PastPartners";
 import GymsMap from "./GymsMap";
-
 
 const App = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
@@ -44,7 +41,6 @@ const App = () => {
             <Route path="/user-requests" element={<UserRequests />} />
             <Route path="/past-partners" element={<PastPartners />} />
             <Route path="/gyms-map" element={<GymsMap />} />
-        
           </Routes>
         </Main>
       </BrowserRouter>
@@ -52,9 +48,6 @@ const App = () => {
   );
 };
 
-const Main = styled.div`
-`
-
-
+const Main = styled.div``;
 
 export default App;

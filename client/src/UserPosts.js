@@ -31,6 +31,7 @@ const UserPosts = () => {
     }
   }, [currentUser]);
 
+  // this checks if user has indoor and/or outdoor posts
   const indoorCheck =
     postings &&
     postings.some((el) => {
@@ -42,6 +43,7 @@ const UserPosts = () => {
       return el.type === "outdoor";
     });
 
+    // this filters down the requests from both posts categories
   const myPendings =
     postings &&
     postings.map((item) => {
@@ -50,7 +52,7 @@ const UserPosts = () => {
 
   postings && console.log(postings);
   myPendings && console.log(myPendings);
-
+// this filters both pendings arrays indoor and outdoor. So later I can verify the array.length
   let outArr;
   if (outdoorCheck && postings) {
     outArr =
@@ -68,6 +70,7 @@ const UserPosts = () => {
       });
   }
 
+  // finally this gives me data to render after several "checks". I took this route as it was giving me errors if indoor/outdoor pendings was undefined (empty array if the post had no requests yet)
   let indoorPendings;
   if (indoorCheck === true && inArr[0].requests.length > 0) {
     indoorPendings = myPendings.find((e) => {
@@ -82,12 +85,14 @@ const UserPosts = () => {
     });
   }
 
+  // this will set the a few things including prompt and message after clicking the trash can
   const handleTrashClick = (type) => {
     setCategory(type);
     setPrompt(true);
     setPromptMessage(`Are you sure you want to delete your ${type} post?`);
   };
 
+  // this handles prompt click, if cancel simple closes prompt, if delete confirms it will determinate the adecuate post to delete
   let postForDelete;
   const handlePromptClick = (e) => {
     if (e.target.value === "cancel") {

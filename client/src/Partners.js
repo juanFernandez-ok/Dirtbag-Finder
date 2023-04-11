@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Header1 from "./Header1";
 import outBanner4 from "./images/outBanner4.png";
@@ -8,7 +7,7 @@ import PostsFetch from "./PostsFetch";
 
 const Partners = () => {
   const { category } = useParams();
-console.log(category);
+
   return (
     <>
       <Header1 />

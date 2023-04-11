@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import ProfileHeader from "./ProfileHeader";
 import bannerImg from "./images/defaultBanner.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ const CreatePost = () => {
   const [indoorColor, setIndoorColor] = useState(false);
   const [outdoorColor, setOutdoorColor] = useState(false);
   const [fetchMessage, setFetchMessage] = useState(null);
-  const[alertPrompt, setAlertPrompt] = useState(false);
+  const [alertPrompt, setAlertPrompt] = useState(false);
   const navigate = useNavigate();
 
   const handlePostText = (e) => {
@@ -50,10 +50,11 @@ const CreatePost = () => {
       //receives the data back from the server
       .then((data) => {
         console.log(data);
-        setAlertPrompt(true)
-        setFetchMessage(data.message)
-        if(data.status === 200) {
-        navigate(`/post-details/${data.newPostId}`);}
+        setAlertPrompt(true);
+        setFetchMessage(data.message);
+        if (data.status === 200) {
+          navigate(`/post-details/${data.newPostId}`);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -79,12 +80,15 @@ const CreatePost = () => {
                   : currentUser.profile.bannerUrl
               })`,
             }}
-          >     {alertPrompt === true && (
-            <PrompMessage
-              fetchMessage={fetchMessage}
-              handleMessageClick={handleMessageClick}
-            />
-          )}</Banner>
+          >
+            {" "}
+            {alertPrompt === true && (
+              <PrompMessage
+                fetchMessage={fetchMessage}
+                handleMessageClick={handleMessageClick}
+              />
+            )}
+          </Banner>
           <Wrapper>
             <PostDiv>
               <P1>Please write a post description below</P1>
@@ -116,14 +120,12 @@ const CreatePost = () => {
           </Wrapper>
           <Div>
             <ConfirmPost
-              disabled={!indoorColor && !outdoorColor || !postText}
+              disabled={(!indoorColor && !outdoorColor) || !postText}
               onClick={handleSubmit}
             >
               create post
             </ConfirmPost>
-            <CancelPost to="/profile">
-              cancel
-            </CancelPost>
+            <CancelPost to="/profile">cancel</CancelPost>
           </Div>
         </div>
       )}
@@ -256,7 +258,6 @@ const CancelPost = styled(Link)`
   :hover {
     color: #f2ae1c;
   }
-`
-
+`;
 
 export default CreatePost;

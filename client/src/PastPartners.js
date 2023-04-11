@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import ProfileHeader from "./ProfileHeader";
 import bannerImg from "./images/defaultBanner.png";
 import { Link } from "react-router-dom";
@@ -7,8 +7,6 @@ import { CurrentUserContext } from "./CurrentUserContext";
 
 const PastPartners = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-
-  console.log(currentUser);
 
   return (
     <>
@@ -33,7 +31,6 @@ const PastPartners = () => {
               return   <Link key={item._id} to={`/profile/${item._id}`}> <SinglePartner><Avatar src={item.userBanner}/>{item.email}</SinglePartner></Link>  
                 })
 }
-
             </PartnersDiv>
             </PartnersContainer>
 
@@ -82,7 +79,6 @@ display: flex;
 justify-content: center;
 `
 const PartnersDiv = styled.div`
-/* background-color: green; */
 width: 90vw;
 display: flex;
 justify-content: space-between;
@@ -95,7 +91,6 @@ const SinglePartner = styled.div`
   height:40px;
   margin-top: 20px;
   margin-left: 150px;
-  /* background-color: aqua; */
 
 `
 const Avatar = styled.img`
