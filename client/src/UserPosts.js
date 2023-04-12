@@ -8,7 +8,7 @@ import { FiTrash2 } from "react-icons/fi";
 import DeletePrompt from "./DeletePrompt";
 
 const UserPosts = () => {
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser, refresh, setRefresh } = useContext(CurrentUserContext);
   const [postings, setPostings] = useState();
   const [promptMessage, setPromptMessage] = useState(null);
   const [prompt, setPrompt] = useState(false);
@@ -115,6 +115,7 @@ const UserPosts = () => {
         "Content-Type": "application/json",
       },
     }).then((data) => {
+      setRefresh(!refresh)
       console.log(data);
     });
   };

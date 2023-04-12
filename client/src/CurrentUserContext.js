@@ -6,6 +6,7 @@ export const CurrentUserContext = createContext(null);
 const CurrentUserProvider = ({ children }) => {
   const { logout, isAuthenticated, user } = useAuth0();
   const [currentUser, setCurrentUser] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -33,7 +34,7 @@ const CurrentUserProvider = ({ children }) => {
           console.log(error);
         });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, refresh]);
 
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const CurrentUserProvider = ({ children }) => {
   }
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser, refresh, setRefresh }}>
       {children}
     </CurrentUserContext.Provider>
   );

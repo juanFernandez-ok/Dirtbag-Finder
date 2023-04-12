@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "./CurrentUserContext";
 
 const EditProfile = () => {
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser, refresh, setRefresh } = useContext(CurrentUserContext);
   const [indoorColor, setindoorColor] = useState(null);
   const [outdoorColor, setoutdoorColor] = useState(null);
   const [bioText, setBioText] = useState(null);
@@ -63,6 +63,7 @@ setTradText(currentUser.profile.levelTrad)
       //receives the data back from the server
       .then((data) => {
         setCurrentUser(data.data);
+        setRefresh(!refresh)
         navigate("/profile");
       })
       .catch((error) => {
@@ -216,6 +217,7 @@ const SportText = styled.textarea`
   width: 90px;
   height: 50px;
   font-size: 26px;
+  font-family: "Raleway", sans-serif;
 `;
 
 const Trad = styled.div`
@@ -228,6 +230,7 @@ const TradText = styled.textarea`
   width: 90px;
   height: 50px;
   font-size: 26px;
+  font-family: "Raleway", sans-serif;
 `;
 
 const Div = styled.div`

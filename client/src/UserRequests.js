@@ -8,7 +8,7 @@ import { FiTrash2 } from "react-icons/fi";
 import DeletePrompt from "./DeletePrompt";
 
 const UserRequests = () => {
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser, setRefresh, refresh } = useContext(CurrentUserContext);
   const [promptMessage, setPromptMessage] = useState(null);
   const [prompt, setPrompt] = useState(false);
   const [postNum, setPostNum] = useState(null);
@@ -39,6 +39,7 @@ const UserRequests = () => {
       },
     }).then((data) => {
       console.log(data);
+      setRefresh(!refresh)
     });
   };
 
