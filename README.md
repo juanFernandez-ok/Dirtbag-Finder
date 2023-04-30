@@ -9,7 +9,7 @@ FEATURES:
 * HomePage with 3 main sections, Profile, Partners, Gyms
 * Profile page. Here each user can edit/update their profile info, create or delete posts, view their requests and delete them, etc
 * Partners page is divided in 2 sections “indoors” and “outdoors”. In here, the current user can navigate through different posts made by other users, view their profiles and send requests to climb together.
-* Gym page consist of a map from Montreal with pins on all the gyms in the city with their info and link to their websites. I used Google Map API for achieving this.
+* Gym page consists of a map from Montreal with pins on all the gyms in the city with their info and link to their websites. I used Google Maps API for achieving this.
 
 This project is a full-stack project. I came out with the idea, designed the layout for the FE and structured the data for the BE. I built the Front End with REACT.js and styled with “styled components”. For the Back End I used Node.js, Express and Mongo DB 
 
