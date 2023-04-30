@@ -3,6 +3,7 @@ Final project for Concordia Bootcamp
 
 In this project I built a web app that connects rock climbers  🧗🏻‍♂️ . The main object of the app is to find partners for climbing trips to different locations or partners for climbing in the city’s gyms. There are different types of climbing but except from Bouldering, you usually need to climb with a partner. This app helps addressing that common “problem” in the climbing community.
 
+FEATURES:
 
 • Sign in/landing page via Auht0
 • HomePage with 3 main sections, Profile, Partners, Gyms
